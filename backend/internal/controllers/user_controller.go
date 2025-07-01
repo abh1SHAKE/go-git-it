@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/abh1SHAKE/go-git-it/backend/internal/middleware"
 	"github.com/abh1SHAKE/go-git-it/backend/internal/models"
 	"github.com/abh1SHAKE/go-git-it/backend/internal/repository"
 	"github.com/abh1SHAKE/go-git-it/backend/internal/utils"
@@ -30,7 +31,7 @@ func (uc *UserController) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	hashedPassword, err := utils.HashPassword(req.Password)
 	if err != nil {
 		http.Error(w, "Server error", http.StatusInternalServerError)
 		return
@@ -87,4 +88,82 @@ func (uc *UserController) Login(w http.ResponseWriter, r *http.Request) {
 		"token": token,
 		"user": user,
 	})
+}
+
+func (uc *UserController) GetProfile(w http.ResponseWriter, r *http.Request) {
+	userID, ok := middleware.GetUserID(r)
+	if !ok {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	user, err := uc.UserRepo.GetUserByID(userID)
+	if err != nil {
+		http.Error(w, "User not found", http.StatusNotFound)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(user)
+}
+
+func (uc *UserController) UpdateProfile(w http.ResponseWriter, r *http.Request) {
+	userID, ok := middleware.GetUserID(r)
+	if !ok {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	var input struct {
+		Name string `json:"name"`
+		Email string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	err := json.NewDecoder(r.Body).Decode(&input)
+	if err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	user := &models.User{
+		ID: userID,
+		Name: input.Name,
+		Email: input.Email,
+	}
+
+	if input.Password != "" {
+		hashed, err := utils.HashPassword(input.Password)
+		if err != nil {
+			http.Error(w, "Failed to hash password", http.StatusInternalServerError)
+			return
+		}
+		user.PasswordHash = hashed
+	}
+
+	err = uc.UserRepo.UpdateUser(user)
+	if err != nil {
+		http.Error(w, "Failed to update profile", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"message": "Profile updated successfully"})
+}
+
+func (uc *UserController) DeleteAccount(w http.ResponseWriter, r *http.Request) {
+	userID, ok := middleware.GetUserID(r)
+	if !ok {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	err := uc.UserRepo.DeleteUser(userID)
+	if err != nil {
+		http.Error(w, "Failed to delete user", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"message": "User account deleted"})
 }
