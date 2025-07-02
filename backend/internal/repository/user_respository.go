@@ -18,9 +18,9 @@ func NewUserRepository(db *sql.DB) *UserRepository {
 
 func (r *UserRepository) CreateUser(user *models.User) error {
 	query := `
-	INSERT INTO users (name, email, password_hash)
-	VALUES ($1, $2, $3)
-	RETURNING id, created_at
+		INSERT INTO users (name, email, password_hash)
+		VALUES ($1, $2, $3)
+		RETURNING id, created_at
 	`
 
 	err := r.DB.QueryRow(query, user.Name, user.Email, user.PasswordHash).
@@ -31,7 +31,7 @@ func (r *UserRepository) CreateUser(user *models.User) error {
 func (r *UserRepository) GetUserByEmail(email string) (*models.User, error) {
 	user := &models.User{}
 	query := `
-	SELECT id, name, email, password_hash, created_at FROM users WHERE email = $1
+		SELECT id, name, email, password_hash, created_at FROM users WHERE email = $1
 	`
 
 	err := r.DB.QueryRow(query, email).Scan(
@@ -51,7 +51,7 @@ func (r *UserRepository) GetUserByEmail(email string) (*models.User, error) {
 func (r *UserRepository) GetUserByID(id int) (*models.User, error) {
 	user := &models.User{}
 	query := `
-	SELECT id, name, email, password_hash, created_at FROM users where id = $1
+		SELECT id, name, email, password_hash, created_at FROM users where id = $1
 	`
 
 	err := r.DB.QueryRow(query, id).Scan(
@@ -107,7 +107,7 @@ func (r *UserRepository) UpdateUser(user *models.User) error {
 
 func (r *UserRepository) DeleteUser(userID int) error {
 	query := `
-	DELETE FROM users WHERE id = $1
+		DELETE FROM users WHERE id = $1
 	`
 
 	_, err := r.DB.Exec(query, userID)
