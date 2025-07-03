@@ -24,6 +24,7 @@ func main() {
 
 	r.Route("/api", func(r chi.Router) {
 		r.Mount("/auth", routes.AuthRoutes())
+		r.Mount("/tags", routes.TagRoutes())
 		r.Mount("/snippets", routes.SnippetRoutes())
 		r.Mount("/user", middleware.AuthMiddleware(routes.UserRoutes()))
 	})
