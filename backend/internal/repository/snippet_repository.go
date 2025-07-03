@@ -300,3 +300,44 @@ func (r *SnippetRepository) DeleteSnippet(id int, userID int) error {
 
 	return nil
 }
+
+func (r *SnippetRepository) GetPublicSnippetsByTag(tagName string) ([]models.SnippetWithTags, error) {
+	query := `
+		SELECT s.id, s.user_id, s.title, s.code, s.language, s.public, s.created_at, u.name
+		FROM snippets s
+		JOIN users u ON s.user_id = u.id
+		JOIN snippet_tags st ON s.id = st.snippet_id
+		JOIN tags t ON st.tag_id = t.id
+		WHERE s.public = TRUE AND t.name = $1
+		ORDER BY s.created_at DESC
+	`
+
+	rows, err := r.DB.Query(query, tagName)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var snippets []models.SnippetWithTags
+	for rows.Next() {
+		var s models.Snippet
+		var authorName string 
+
+		err := rows.Scan(&s.ID, &s.UserID, &s.Title, &s.Code, &s.Language, &s.Public, &s.CreatedAt, &authorName)
+		if err != nil {
+			return nil, err
+		}
+
+		tags, err := r.GetTagsForSnippet(s.ID)
+		if err != nil {
+			return nil, err 
+		}
+
+		snippets = append(snippets, models.SnippetWithTags{
+			Snippet: s,
+			Tags: tags,
+		})
+	}
+
+	return snippets, nil
+}

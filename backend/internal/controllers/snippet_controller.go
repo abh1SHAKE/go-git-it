@@ -74,7 +74,17 @@ func (sc *SnippetController) CreateSnippet(w http.ResponseWriter, r *http.Reques
 }
 
 func (sc *SnippetController) GetAllPublicSnippets(w http.ResponseWriter, r *http.Request) {
-	snippets, err := sc.SnippetRepo.GetAllPublicSnippets()
+	tag := r.URL.Query().Get("tag")
+
+	var snippets []models.SnippetWithTags
+	var err error 
+
+	if tag != "" {
+		snippets, err = sc.SnippetRepo.GetPublicSnippetsByTag(tag)
+	} else {
+		snippets, err = sc.SnippetRepo.GetAllPublicSnippets()
+	}
+
 	if err != nil {
 		http.Error(w, "Failed to fetch snippets", http.StatusInternalServerError)
 		return
@@ -178,7 +188,16 @@ func (sc *SnippetController) UpdateSnippet(w http.ResponseWriter, r *http.Reques
 		existing.Public = *input.Public
 	}
 
-	err = sc.SnippetRepo.UpdateSnippet(&existing.Snippet, input.Tags)
+	var tagNames []string 
+	if input.Tags != nil {
+		tagNames = input.Tags
+	} else {
+		for _, tag := range existing.Tags {
+			tagNames = append(tagNames, tag.Name)
+		}
+	}
+
+	err = sc.SnippetRepo.UpdateSnippet(&existing.Snippet, tagNames)
 	if err != nil {
 		http.Error(w, "Failed to update snippet", http.StatusInternalServerError)
 		return
