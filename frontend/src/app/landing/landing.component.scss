@@ -1,9 +1,9 @@
 .parent-container {
     background: #161616;
     display: flex;
-    gap: 140px;
+    gap: 120px;
     flex-direction: column;
-    padding: 20px 80px;
+    padding: 20px 80px 100px;
     box-sizing: border-box;
 
     .header-section {
@@ -30,18 +30,53 @@
     }
 
     .main-section {
+        display: flex;
+        gap: 120px;
+        // justify-content: space-between;
+
+        align-items: center;
+
+        .right-section {
+            align-self: center;
+            width: 40%;
+            display: flex;
+            justify-content: end;
+
+            .random-text {
+                text-align: center;
+                font-size: 12px;
+                color: #ffffffbd;
+
+                transform: rotate(90deg);
+                height: fit-content;
+                align-self: center;
+                cursor: default;
+                opacity: 0.5;
+            }
+        }
+
         .left-section {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            width: fit-content;
+            width: 60%;
+
+            .description {
+                cursor: default;
+                color: #ffffffbd;
+                font-size: 16px;
+                font-weight: 500;
+                margin-top: 60px;
+
+                text-align: justify;
+                line-height: 24px;
+            }
 
             .reveal-wrapper {
                 overflow: hidden;
 
                 .split-line {
                     padding: 4px;
-                    animation: reveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) both;
+                    animation: reveal 1s cubic-bezier(0.25, 1, 0.5, 1) both;
 
                     width: fit-content;
                     font-size: 32px;
