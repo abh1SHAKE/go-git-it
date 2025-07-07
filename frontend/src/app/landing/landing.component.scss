@@ -1,0 +1,29 @@
+.parent-container {
+    // height: 100vh;
+    // height: 100%;
+    background: #161616;
+    display: flex;
+    padding: 20px 80px;
+    box-sizing: border-box;
+
+    .header-section {
+        cursor: pointer;
+        font-size: 48px;
+        font-weight: 700;
+        position: relative;
+
+        color: transparent;
+        background: linear-gradient(to left,
+                #ffffffe6,
+                #ffffff33);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        text-shadow:
+            1px 1px 2px #ffffff4d,
+            2px 2px 6px #ffffff1a;
+
+        filter: blur(0.15px);
+    }
+}
