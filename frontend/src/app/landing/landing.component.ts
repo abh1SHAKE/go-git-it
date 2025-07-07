@@ -8,5 +8,5 @@ import { LandingAnimationComponent } from "./landing-animation/landing-animation
   styleUrl: './landing.component.scss'
 })
 export class LandingComponent {
-
+  isAuthenticated: boolean = true;
 }
