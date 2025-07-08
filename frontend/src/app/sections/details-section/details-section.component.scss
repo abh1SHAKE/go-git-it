@@ -123,4 +123,29 @@
             rgba(238, 174, 202, 1) 40%,
             rgba(202, 179, 214, 1) 65%,
             rgba(148, 201, 233, 1) 100%);
+
+    background-size: 150% 150%;
+    animation: gradient 4s ease-in-out infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    25% {
+        background-position: 50% 100%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    75% {
+        background-position: 50% 0%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
