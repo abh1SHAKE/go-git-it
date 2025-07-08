@@ -14,7 +14,7 @@ $half-size: 80px;
     width: $cube-size;
     height: $cube-size;
     transform-style: preserve-3d;
-    transform: rotateX(45deg) rotateZ(45deg);
+    transform: rotateX(60deg) rotateZ(60deg);
     animation: cubeSpin 12s infinite linear;
 }
 
@@ -54,10 +54,10 @@ $half-size: 80px;
 
 @keyframes cubeSpin {
     0% {
-        transform: rotateX(45deg) rotateZ(0deg);
+        transform: rotateX(60deg) rotateZ(0deg);
     }
 
     100% {
-        transform: rotateX(45deg) rotateZ(360deg);
+        transform: rotateX(60deg) rotateZ(360deg);
     }
 }
