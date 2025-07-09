@@ -44,7 +44,7 @@
                     .card {
                         display: flex;
                         flex-direction: column;
-                        gap: 40px;
+                        gap: 28px;
                         border-radius: 4px;
                         padding: 40px;
                         color: #ffffffbd;
@@ -73,10 +73,10 @@
                                 display: flex;
                                 align-items: center;
                                 width: 100%;
+                                position: relative;
 
                                 .progress-bar-front {
                                     height: 4px;
-                                    width: 50px;
                                     background: #ffffffbd;
                                     border-radius: 8px;
                                     position: absolute;

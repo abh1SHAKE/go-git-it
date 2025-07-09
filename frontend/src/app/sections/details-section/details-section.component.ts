@@ -31,8 +31,8 @@ export class DetailsSectionComponent implements OnInit, OnDestroy {
 
         `Quick saves, auto timestamps, and tag-ready entries mean you can paste now and polish later. 
         Because great ideas don’t wait for neat formatting. Save smarter. Go Git It does the heavy 
-        lifting while you code in peace.`
-      ]
+        lifting while you code in peace.`,
+      ],
     },
     {
       cardTitle: 'Tag Everything',
@@ -54,8 +54,8 @@ export class DetailsSectionComponent implements OnInit, OnDestroy {
         right neurons when it matters.`,
 
         `Your snippets deserve better than ‘misc’. With Go Git It, tagging feels less like admin work and
-        more like giving your code a proper name tag at a party. And yes, we alphabetize like proper code nerds.`
-      ]
+        more like giving your code a proper name tag at a party. And yes, we alphabetize like proper code nerds.`,
+      ],
     },
     {
       cardTitle: 'Public or Private',
@@ -76,26 +76,64 @@ export class DetailsSectionComponent implements OnInit, OnDestroy {
         zero fuss.`,
 
         `Switch from private to public like toggling dark mode. Go Git It lets you test, tweak, and then reveal your 
-        brilliance when you're ready. Because sometimes, code needs a little alone time before it's shown the world.`
-      ]
+        brilliance when you're ready. Because sometimes, code needs a little alone time before it's shown the world.`,
+      ],
     },
   ];
 
   currentCardIndex = 0;
+  progressStates: number[] = [];
   private intervalId!: ReturnType<typeof setInterval>;
 
   ngOnInit(): void {
+    this.progressStates = this.cards.map(() => 0);
     this.startCardLoop();
   }
 
   startCardLoop(): void {
+    this.resetProgressStates();
+    this.fillProgress(this.currentCardIndex);
+
     this.intervalId = setInterval(() => {
-      this.currentCardIndex = (this.currentCardIndex + 1) % this.cards.length;
-    }, 8000);
+      this.progressStates[this.currentCardIndex] = 100;
+
+      const nextIndex = (this.currentCardIndex + 1) % this.cards.length;
+
+      if (nextIndex === 0) {
+        this.resetProgressStates();
+
+        setTimeout(() => {
+          this.currentCardIndex = 0;
+          this.fillProgress(0);
+        }, 50);
+      } else {
+        this.currentCardIndex = nextIndex;
+        this.fillProgress(this.currentCardIndex);
+      }
+    }, 6000);
   }
 
-  isActive(index: number): boolean {
+  fillProgress(index: number): void {
+    this.progressStates[index] = 0;
+    setTimeout(() => {
+      this.progressStates[index] = 100;
+    }, 50);
+  }
+
+  resetProgressStates(): void {
+    this.progressStates = this.cards.map(() => 0);
+  }
+
+  getProgressWidth(index: number): string {
+    return this.progressStates[index] + '%';
+  }
+
+  shouldAnimateProgress(index: number): boolean {
     return index === this.currentCardIndex;
+  }
+
+  pauseCardLoop(): void {
+    clearInterval(this.intervalId);
   }
 
   ngOnDestroy(): void {

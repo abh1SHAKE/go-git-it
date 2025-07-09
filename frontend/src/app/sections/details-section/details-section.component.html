@@ -21,7 +21,12 @@
                             @for (card of cards; track card) {
                             <div class="progress-bar">
                                 <div 
-                                    class="progress-bar-front"></div>
+                                    class="progress-bar-front"
+                                    [ngStyle]="{
+                                        width: getProgressWidth(cards.indexOf(card)),
+                                        transition: shouldAnimateProgress(cards.indexOf(card)) ? 'width 6s linear' : 'none'
+                                    }"
+                                ></div>
                                 <div class="progress-bar-back">
                                 </div>
                             </div>
