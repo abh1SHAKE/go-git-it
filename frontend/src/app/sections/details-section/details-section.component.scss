@@ -26,6 +26,20 @@
             gap: 120px;
 
             .left-section {
+                display: flex;
+                gap: 40px;
+                align-items: center;
+
+                .hover-message {
+                    cursor: default;
+                    color: #ffffffbd;
+                    writing-mode: vertical-rl;
+                    transform: rotate(180deg);
+                    white-space: nowrap;
+                    font-size: 14px;
+                    opacity: 0.5;
+                }
+
                 .card-container {
                     .card {
                         display: flex;
@@ -82,7 +96,6 @@
 
             .right-section {
                 display: flex;
-                align-items: center;
 
                 .card-description {
                     cursor: default;
