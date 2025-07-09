@@ -8,20 +8,20 @@
                 <div class="card-container">
                     <div class="card font-urbanist hover-target">
                         <div class="card-image">
-                            <div class="image">
+                            <div class="image"
+                                [ngStyle]="{ 'background-image': cards[currentCardIndex].cardGradient }"
+                            >
                                 <div class="card-title font-funnel">
-                                    {{ cards[1].cardTitle }}
+                                    {{ cards[currentCardIndex].cardTitle }}
                                 </div>
                             </div>
                         </div>
                         <div class="card-bottom">
                             @for (card of cards; track card) {
                             <div class="progress-bar">
-                                <div class="progress-bar-front">
-
-                                </div>
+                                <div 
+                                    class="progress-bar-front"></div>
                                 <div class="progress-bar-back">
-
                                 </div>
                             </div>
                             }
@@ -32,31 +32,22 @@
             <div class="right-section">
                 <div class="card-description font-urbanist">
                     <div class="description-title">
-                        DESCRIPTION
+                        {{ cards[currentCardIndex].cardTitle }}
                     </div>
                     <div class="description-content">
                         <div class="reveal-wrapper">
                             <div class="split-line" style="animation-delay: 0.3s">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type
-                                specimen book.
+                                {{ cards[currentCardIndex].cardDescription[0] }}
                             </div>
                         </div>
                         <div class="reveal-wrapper">
                             <div class="split-line" style="animation-delay: 0.3s">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type
-                                specimen book.
+                                {{ cards[currentCardIndex].cardDescription[1] }}
                             </div>
                         </div>
                         <div class="reveal-wrapper">
                             <div class="split-line" style="animation-delay: 0.3s">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type
-                                specimen book.
+                                {{ cards[currentCardIndex].cardDescription[2] }}
                             </div>
                         </div>
                     </div>

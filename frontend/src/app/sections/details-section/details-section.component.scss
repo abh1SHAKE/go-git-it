@@ -5,7 +5,7 @@
 
     .container {
         display: flex;
-        gap: 32px;
+        gap: 40px;
         flex-direction: column;
 
         .header-section {
@@ -118,17 +118,9 @@
     width: 400px;
     height: 300px;
     opacity: 0.9;
-    background: radial-gradient(125% 125% at -2% 101%,
-            rgba(245, 87, 2, 1) 10.5%,
-            rgba(245, 120, 2, 1) 16%,
-            rgba(245, 140, 2, 1) 17.5%,
-            rgba(245, 170, 100, 1) 25%,
-            rgba(238, 174, 202, 1) 40%,
-            rgba(202, 179, 214, 1) 65%,
-            rgba(148, 201, 233, 1) 100%);
 
     background-size: 150% 150%;
-    animation: gradient 4s ease-in-out infinite;
+    animation: gradient 10s ease-in-out infinite;
 }
 
 @keyframes gradient {
