@@ -5,13 +5,11 @@
         </div>
         <div class="main-container">
             <div class="left-section">
-                <div class="hover-message font-urbanist">* hover over the card or text to pause and read *</div>
-                <div class="card-container">
+                <div class="hover-message font-urbanist">* hover over the card to pause and read *</div>
+                <div class="card-container" (mouseenter)="pauseCardLoop()" (mouseleave)="resumeCardLoop()">
                     <div class="card font-urbanist hover-target">
                         <div class="card-image">
-                            <div class="image"
-                                [ngStyle]="{ 'background-image': cards[currentCardIndex].cardGradient }"
-                            >
+                            <div class="image" [ngStyle]="{ 'background-image': cards[currentCardIndex].cardGradient }">
                                 <div class="card-title font-funnel">
                                     {{ cards[currentCardIndex].cardTitle }}
                                 </div>
@@ -20,11 +18,9 @@
                         <div class="card-bottom">
                             @for (card of cards; track card) {
                             <div class="progress-bar">
-                                <div 
-                                    class="progress-bar-front"
+                                <div class="progress-bar-front" 
                                     [ngStyle]="{
-                                        width: getProgressWidth(cards.indexOf(card)),
-                                        transition: shouldAnimateProgress(cards.indexOf(card)) ? 'width 6s linear' : 'none'
+                                        width: getProgressWidth(cards.indexOf(card))
                                     }"
                                 ></div>
                                 <div class="progress-bar-back">
