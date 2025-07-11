@@ -1,0 +1,32 @@
+.card-container {
+    flex: 0 0 auto;
+    width: 250px;
+    min-height: 120px;
+    padding: 24px 36px;
+    background: #1b1b1b;
+    cursor: default;
+    border-radius: 8px;
+
+    margin-right: 80px;
+
+    .card {
+        color: #ffffffbd;
+
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+
+        .card-title {
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .card-description {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+
+            opacity: 0.8;
+        }
+    }
+}

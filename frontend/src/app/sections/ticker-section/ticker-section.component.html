@@ -1,0 +1,29 @@
+<div class="parent-container">
+    <div appScrollReveal class="container fade-up">
+        <div class="section-title font-urbanist">
+            * ticker, because why not? (hover to pause) *
+        </div>
+        <div class="ticker-wrapper">
+            <div class="shade left"></div>
+
+            <div class="ticker-track">
+                <div class="ticker-inner">
+                    @for (card of tickerCards; track card) {
+                        <app-ticker-card 
+                            [cardTitle]="card.cardTitle"
+                            [cardDetails]="card.cardDetails"
+                        />
+                    }
+                    @for (card of tickerCards; track card) {
+                        <app-ticker-card 
+                            [cardTitle]="card.cardTitle"
+                            [cardDetails]="card.cardDetails"
+                        />
+                    }
+                </div>
+            </div>
+
+            <div class="shade right"></div>
+        </div>
+    </div>
+</div>

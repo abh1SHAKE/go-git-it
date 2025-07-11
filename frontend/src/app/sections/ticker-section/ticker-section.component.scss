@@ -1,0 +1,90 @@
+.parent-container {
+    background: #161616;
+    padding: 20px 80px 100px;
+    box-sizing: border-box;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        position: relative;
+        overflow: hidden;
+
+        .section-title {
+            color: #ffffffbd;
+            font-size: 14px;
+            opacity: 0.5;
+            align-self: flex-end;
+            cursor: default;
+        }
+
+        .ticker-wrapper {
+            position: relative;
+            width: 100%;
+
+            .ticker-track {
+                width: max-content;
+                display: flex;
+                animation: ticker 200s linear infinite;
+            }
+
+            &:hover .ticker-track {
+                animation-play-state: paused;
+            }
+
+            .ticker-inner {
+                display: flex;
+                overflow-x: auto;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                width: 100%;
+            }
+
+            .ticker-inner::-webkit-scrollbar {
+                display: none;
+            }
+
+            .shade {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 80px;
+                z-index: 10;
+                pointer-events: none;
+
+                &.left {
+                    left: 0;
+                    background: linear-gradient(to right, rgba(22, 22, 22, 1) 0%, rgba(22, 22, 22, 0.8) 30%, rgba(22, 22, 22, 0.4) 60%, rgba(22, 22, 22, 0) 100%);
+
+                }
+
+                &.right {
+                    right: 0;
+                    background: linear-gradient(to left, rgba(22, 22, 22, 1) 0%, rgba(22, 22, 22, 0.8) 30%, rgba(22, 22, 22, 0.4) 60%, rgba(22, 22, 22, 0) 100%);
+                }
+            }
+        }
+    }
+}
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(80px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes ticker {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
