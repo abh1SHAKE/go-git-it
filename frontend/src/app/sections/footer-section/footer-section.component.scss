@@ -1,0 +1,89 @@
+.parent-container {
+    background: #161616;
+    padding: 40px 80px 40px;
+    box-sizing: border-box;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 64px;
+        color: #ffffffbd;
+
+        .footer-title {
+            cursor: default;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+
+            .left-section {
+                display: flex;
+                gap: 12px;
+                flex-direction: column;
+
+                .socials {
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+
+                    .icon {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .text {
+                        cursor: pointer;
+                        font-size: 16px;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+
+            .right-section {
+                cursor: default;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                text-align: end;
+
+                .personal-info {
+                    display: flex;
+                    gap: 8px;
+                    flex-direction: column;
+
+                    .random-text {
+                        font-size: 14px;
+                        opacity: 0.5;
+                    }
+                }
+            }
+        }
+
+        .made-by {
+            cursor: default;
+            text-align: center;
+
+            .name {
+                font-size: 18px;
+                font-weight: 900;
+            }
+        }
+    }
+}
+
+.fade-up {
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+.fade-up.in-view {
+    opacity: 1;
+}
