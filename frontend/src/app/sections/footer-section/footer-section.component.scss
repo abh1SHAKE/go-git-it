@@ -1,6 +1,6 @@
 .parent-container {
     background: #161616;
-    padding: 40px 80px 40px;
+    padding: 40px 80px 60px;
     box-sizing: border-box;
 
     .container {
@@ -10,10 +10,24 @@
         color: #ffffffbd;
 
         .footer-title {
-            cursor: default;
-            text-align: center;
-            font-size: 32px;
+            font-size: 48px;
             font-weight: 700;
+            position: relative;
+            cursor: pointer;
+
+            color: transparent;
+            background: linear-gradient(to left,
+                    #ffffffe6,
+                    #ffffff33);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow:
+                1px 1px 2px #ffffff4d,
+                2px 2px 6px #ffffff1a;
+
+            filter: blur(0.15px);
         }
 
         .main-content {
@@ -81,9 +95,11 @@
 
 .fade-up {
     opacity: 0;
-    transition: opacity 1.2s ease;
+    transform: translateY(60px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .fade-up.in-view {
     opacity: 1;
+    transform: translateY(0);
 }
