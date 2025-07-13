@@ -49,9 +49,11 @@
                         align-items: center;
                     }
 
-                    .text {
+                    .social-link {
                         cursor: pointer;
                         font-size: 16px;
+                        color: #ffffffbd;
+                        text-decoration: none;
 
                         &:hover {
                             text-decoration: underline;
