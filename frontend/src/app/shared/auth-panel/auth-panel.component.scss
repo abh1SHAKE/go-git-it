@@ -1,0 +1,77 @@
+.auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f0f0;
+    z-index: 1000;
+    padding: 40px 80px 100px;
+    box-sizing: border-box;
+
+    animation: slideIn 0.7s cubic-bezier(0.85, 0, 0.15, 1) forwards;
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+
+        .header-title {
+            width: fit-content;
+            height: fit-content;
+            font-size: 48px;
+            font-weight: 700;
+            position: relative;
+            cursor: pointer;
+
+            color: transparent;
+            background: linear-gradient(to left,
+                    #111111cc,
+                    #1b1b1b66);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow:
+                1px 1px 2px #2424246d,
+                2px 2px 6px #0000001a;
+
+            filter: blur(0.15px);
+        }
+
+        .header-cta {
+            display: flex;
+            color: #333;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.slide-out {
+    animation: slideOut 0.7s cubic-bezier(0.85, 0, 0.15, 1) forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateY(0%);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}

@@ -1,7 +1,7 @@
 <div class="parent-container">
     <div class="font-funnel header-section">
-        <div class="header-title hover-target">: go git it</div>
-        <div class="header-cta hover-target">SIGN IN</div>
+        <div class="header-title">: go git it</div>
+        <div class="header-cta" (click)="openAuth()">SIGN IN</div>
     </div>
 
     <div class="main-section">
@@ -33,3 +33,7 @@
         </div>
     </div>
 </div>
+
+@if (authOpen) {
+    <app-auth-panel (close)="authOpen = false"></app-auth-panel>
+}
