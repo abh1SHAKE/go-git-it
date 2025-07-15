@@ -3,4 +3,25 @@
         <div class="header-title">: go git it</div>
         <div class="header-cta hover-target" (click)="onClose()">GO BACK</div>
     </div>
+
+    <div class="main-container">
+        <div class="form-heading">
+            @if (isSignUpPage) {
+                <div class="font-funnel">
+                    REGISTER TO <span class="highlight">:go git it</span>
+                </div>
+            } @else {
+                <div class="font-funnel">
+                    LOGIN TO <span class="highlight">:go git it</span>
+                </div>
+            }
+        </div>
+        <div class="container">
+            @if (isSignUpPage) {
+                <app-auth-register (switchToLogin)="toggleAuth()"/>
+            } @else {
+                <app-auth-login (switchToRegister)="toggleAuth()"/>
+            }
+        </div>
+    </div>
 </div>

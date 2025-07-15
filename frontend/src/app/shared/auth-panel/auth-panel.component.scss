@@ -11,6 +11,31 @@
 
     animation: slideIn 0.7s cubic-bezier(0.85, 0, 0.15, 1) forwards;
 
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        flex-direction: column;
+        gap: 40px;
+
+        .form-heading {
+            font-size: 20px;
+            font-weight: 700;
+            cursor: default;
+
+            .highlight {
+                background: #161616;
+                padding: 4px 8px;
+                color: #f0f0f0;
+            }
+        }
+
+        .container {
+            width: 100%;
+        }
+    }
+
     .header-section {
         display: flex;
         justify-content: space-between;
@@ -22,20 +47,6 @@
             font-weight: 700;
             position: relative;
             cursor: pointer;
-
-            color: transparent;
-            background: linear-gradient(to left,
-                    #111111cc,
-                    #1b1b1b66);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-
-            text-shadow:
-                1px 1px 2px #2424246d,
-                2px 2px 6px #0000001a;
-
-            filter: blur(0.15px);
         }
 
         .header-cta {
