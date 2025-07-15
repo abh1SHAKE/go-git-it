@@ -1,0 +1,42 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="form-container font-urbanist">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+    
+    @if (name?.hasError('required')) {
+      <mat-error>Name is required</mat-error>
+    }
+    @if (name?.hasError('minlength')) {
+      <mat-error>Name must be at least 3 characters</mat-error>
+    }
+    @if (name?.hasError('maxlength')) {
+      <mat-error>Name cannot exceed 30 characters</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+
+    @if (email?.hasError('required')) {
+      <mat-error>Email is required</mat-error>
+    }
+    @if (email?.hasError('email')) {
+      <mat-error>Enter a valid email</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" />
+
+    @if (password?.hasError('required')) {
+      <mat-error>Password is required</mat-error>
+    }
+  </mat-form-field>
+
+  <div class="cta-container">
+    <button mat-raised-button color="primary" type="submit" class="hover-target">REGISTER</button>
+    <div class="cta">Already a user? &nbsp; <span class="font-funnel" (click)="switchToLogin.emit()"> SIGN IN </span></div>
+  </div>
+</form>
