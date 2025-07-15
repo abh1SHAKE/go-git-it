@@ -1,0 +1,28 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-container font-urbanist">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+
+    @if (email?.hasError('required')) {
+      <mat-error>Email is required</mat-error>
+    }
+    @if (email?.hasError('email')) {
+      <mat-error>Enter a valid email</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" />
+
+    @if (password?.hasError('required')) {
+      <mat-error>Password is required</mat-error>
+    }
+  </mat-form-field>
+
+  <div class="cta-container">
+    <button mat-raised-button color="primary" type="submit" class="hover-target">LOGIN</button>
+    <div class="cta">Don't have an account? &nbsp; <span class="font-funnel" (click)="switchToRegister.emit()"> REGISTER </span></div>
+  </div>
+</form>
