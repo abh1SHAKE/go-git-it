@@ -1,0 +1,117 @@
+.parent-container {
+    background: #161616;
+    display: flex;
+    gap: 120px;
+    flex-direction: column;
+    padding: 40px 80px 100px;
+    box-sizing: border-box;
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+
+        .header-title {
+            width: fit-content;
+            height: fit-content;
+            font-size: 48px;
+            font-weight: 700;
+            position: relative;
+            cursor: pointer;
+
+            color: transparent;
+            background: linear-gradient(to left,
+                    #ffffffe6,
+                    #ffffff33);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow:
+                1px 1px 2px #ffffff4d,
+                2px 2px 6px #ffffff1a;
+
+            filter: blur(0.15px);
+        }
+
+        .header-cta {
+            display: flex;
+            color: #ffffffbd;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .main-section {
+        display: flex;
+        gap: 120px;
+
+        align-items: center;
+
+        .right-section {
+            align-self: center;
+            width: 40%;
+            display: flex;
+            justify-content: end;
+        }
+
+        .left-section {
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+
+            .description {
+                cursor: default;
+                color: #ffffffbd;
+                font-size: 16px;
+                font-weight: 500;
+                margin-top: 60px;
+
+                text-align: justify;
+                line-height: 24px;
+            }
+
+            .reveal-wrapper {
+                overflow: hidden;
+
+                .split-line {
+                    padding: 4px;
+                    animation: reveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) both;
+
+                    width: fit-content;
+                    font-size: 32px;
+                    font-weight: 600;
+                    cursor: default;
+
+                    color: transparent;
+                    background: linear-gradient(to left,
+                            #fffffff0,
+                            #ffffff8e);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+
+                    text-shadow:
+                        1px 1px 2px #ffffff4d,
+                        2px 2px 6px #ffffff1a;
+
+                    filter: blur(0.15px);
+                }
+            }
+        }
+    }
+}
+
+@keyframes reveal {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}

@@ -1,0 +1,36 @@
+<div class="parent-container">
+    <div class="font-funnel header-section">
+        <div class="header-title">: go git it</div>
+        <div class="header-cta" (click)="openAuth()">SIGN IN</div>
+    </div>
+
+    <div class="main-section">
+        <div class="left-section">
+            <div class="reveal-wrapper">
+                <div class="split-line font-urbanist hover-target" style="animation-delay: 0.1s">
+                    You could email yourself that code block… 
+                </div>
+            </div>
+            <div class="reveal-wrapper">
+                <div class="split-line font-urbanist hover-target" style="animation-delay: 0.3s">
+                    ...or you could, <span class="font-funnel"> : go git it. </span>
+                </div>
+            </div>
+
+            <div class="description font-urbanist">
+                <p>{{ subheading.subheading1 }}</p>
+                <p>{{ subheading.subheading2 }} </p>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="animaton-container">
+                <app-hero-section-animation/>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (authOpen) {
+    <app-auth-panel (close)="authOpen = false"></app-auth-panel>
+}

@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
-import { LandingComponent } from "./landing/landing.component";
-import { CustomCursorComponent } from "./shared/custom-cursor/custom-cursor.component";
-import { DetailsSectionComponent } from "./sections/details-section/details-section.component";
-import { TickerSectionComponent } from "./sections/ticker-section/ticker-section.component";
-import { FooterSectionComponent } from "./sections/footer-section/footer-section.component";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [LandingComponent, CustomCursorComponent, DetailsSectionComponent, TickerSectionComponent, FooterSectionComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
