@@ -23,7 +23,7 @@
         .main-container {
             display: flex;
             width: 100%;
-            gap: 120px;
+            gap: 80px;
 
             .left-section {
                 display: flex;
@@ -128,7 +128,7 @@
 
 .image {
     border-radius: 8px;
-    width: 400px;
+    width: 380px;
     height: 300px;
     opacity: 0.9;
 
@@ -167,4 +167,39 @@
 .fade-up.in-view {
     opacity: 1;
     transform: translateY(0);
+}
+
+@media (max-width: 1140px) {
+    .parent-container {
+        .container {
+            .main-container {
+                flex-direction: column;
+
+                .left-section {
+                    .card-container {
+                        width: 100%;
+                        max-width: 698px;
+
+                        .card {
+                            .card-image {
+                                .image {
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .right-section {
+                    .card-description {
+                        padding-left: 56px;
+                        
+                        .description-content {
+                            max-width: 698px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
