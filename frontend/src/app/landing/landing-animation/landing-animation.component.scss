@@ -61,3 +61,14 @@ $half-size: 80px;
         transform: rotateX(60deg) rotateZ(360deg);
     }
 }
+
+.random-text {
+    margin-left: 60px;
+    cursor: default;
+    color: rgba(255, 255, 255, 0.7411764706);
+    writing-mode: vertical-rl;
+    transform: rotate(360deg);
+    white-space: nowrap;
+    font-size: 14px;
+    opacity: 0.5;
+}

@@ -57,19 +57,6 @@
             width: 40%;
             display: flex;
             justify-content: end;
-
-            .random-text {
-                margin-left: 20px;
-                text-align: center;
-                font-size: 14px;
-                color: #ffffffbd;
-
-                transform: rotate(90deg);
-                height: fit-content;
-                align-self: center;
-                cursor: default;
-                opacity: 0.5;
-            }
         }
 
         .left-section {
