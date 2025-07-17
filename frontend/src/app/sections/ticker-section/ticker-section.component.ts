@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { TickerCardComponent } from './ticker-card/ticker-card.component';
-import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
 
 @Component({
   selector: 'app-ticker-section',
-  imports: [ScrollRevealDirective, TickerCardComponent],
+  imports: [TickerCardComponent],
   templateUrl: './ticker-section.component.html',
   styleUrl: './ticker-section.component.scss',
 })

@@ -1,6 +1,6 @@
 .parent-container {
     background: #161616;
-    padding: 20px 80px 100px;
+    padding: 40px 80px 100px;
     box-sizing: border-box;
 
     .container {
@@ -66,17 +66,6 @@
             }
         }
     }
-}
-
-.fade-up {
-    opacity: 0;
-    transform: translateY(80px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-up.in-view {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 @keyframes ticker {
