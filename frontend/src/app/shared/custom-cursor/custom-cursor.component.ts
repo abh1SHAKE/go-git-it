@@ -1,12 +1,19 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 import { CustomCursorService } from '../../services/custom-cursor.service';
 import { Subscription } from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-custom-cursor',
-  imports: [],
   templateUrl: './custom-cursor.component.html',
-  styleUrl: './custom-cursor.component.scss'
+  styleUrl: './custom-cursor.component.scss',
 })
 export class CustomCursorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('cursor', { static: true }) cursorRef!: ElementRef<HTMLDivElement>;
@@ -17,9 +24,11 @@ export class CustomCursorComponent implements AfterViewInit, OnDestroy {
   private currentY = 0;
   private animationFrameId = 0;
   private serviceSub!: Subscription;
+  private routerSub!: Subscription;
 
   constructor(
-    public cursorService: CustomCursorService
+    public cursorService: CustomCursorService,
+    private router: Router
   ) {}
 
   ngAfterViewInit(): void {
@@ -33,13 +42,18 @@ export class CustomCursorComponent implements AfterViewInit, OnDestroy {
     this.animateCursor();
 
     this.serviceSub = this.cursorService.enabled$.subscribe((enabled) => {
-      if(enabled) {
-        this.setupHoverTargets(cursor);
+      if (enabled) {
         cursor.style.display = 'block';
       } else {
-        cursor.style.display = 'none'
+        cursor.style.display = 'none';
       }
     });
+
+    this.routerSub = this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        setTimeout(() => this.setupHoverTargets(cursor), 0);
+      });
   }
 
   private animateCursor(): void {
@@ -54,15 +68,23 @@ export class CustomCursorComponent implements AfterViewInit, OnDestroy {
 
   private setupHoverTargets(cursor: HTMLElement): void {
     const targets = document.querySelectorAll('.hover-target');
+
     targets.forEach((element) => {
-      element.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-      element.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+      element.addEventListener('mouseenter', () => {
+        console.log('Hovered on', element);
+        cursor.classList.add('cursor-hover');
+      });
+
+      element.addEventListener('mouseleave', () => {
+        console.log('Unhovered on', element);
+        cursor.classList.remove('cursor-hover');
+      });
     });
   }
 
   ngOnDestroy(): void {
     cancelAnimationFrame(this.animationFrameId);
     this.serviceSub?.unsubscribe();
+    this.routerSub?.unsubscribe();
   }
 }
-
