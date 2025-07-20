@@ -1,0 +1,32 @@
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    background: #1B1B1B;
+    border-radius: 8px;
+    padding: 24px 16px;
+    cursor: pointer;
+
+    &:hover {
+        background: #252525;
+    }
+
+    .card {
+        display: flex;
+        gap: 16px;
+        flex-direction: column;
+
+        .tags-container {
+            display: flex;
+            gap: 8px;
+            max-width: 250px;
+            flex-wrap: wrap;
+
+            .tag {
+                font-size: 14px;
+                padding: 4px 10px;
+                border: 2px solid #8d0505;
+                border-radius: 50px;
+            }
+        }
+    }
+}
