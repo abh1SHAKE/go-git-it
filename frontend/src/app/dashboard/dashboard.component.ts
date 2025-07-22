@@ -22,9 +22,6 @@ export class DashboardComponent {
   @ViewChild('codeContainer', { read: ElementRef }) codeContainer!: ElementRef;
   searchTerm: string = '';
 
-  tagDialogOpen: boolean = true;
-  filterDialogOpen: boolean = false;
-
   snippets = [
     {
       title: 'title1',
@@ -60,7 +57,7 @@ export class DashboardComponent {
   searchPopupVisible = false;
   filterPopupVisible = false;
 
-togglePopup(type: string) {
+openPopup(type: string) {
   if (type === 'search-tag') {
     this.searchPopupVisible = true;
     this.filterPopupVisible = false;
@@ -69,6 +66,14 @@ togglePopup(type: string) {
     this.searchPopupVisible = false;
   }
 }
+
+  closePopup(type: string) {
+    if (type === 'search-tag') {
+      this.searchPopupVisible = false;
+    } else if (type === 'filter-dialog') {
+      this.filterPopupVisible = false;
+    }
+  }
 
 
   copyCode() {

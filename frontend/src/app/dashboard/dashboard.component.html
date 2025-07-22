@@ -5,7 +5,7 @@
                 <div class="filter-container">
                     <div 
                         class="filter"
-                        (click)="togglePopup('search-tag')"
+                        (click)="openPopup('search-tag')"
                     >
                         <div class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -17,13 +17,13 @@
                         </div>
                         @if (searchPopupVisible) {
                             <div class="popup-container search-tag" (click)="$event.stopPropagation()">
-                                <app-search-tag-dialog />
+                                <app-search-tag-dialog (close)="closePopup('search-tag')" />
                             </div>
                         }
                     </div>
                     <div 
                         class="filter" 
-                        (click)="togglePopup('filter-dialog')"
+                        (click)="openPopup('filter-dialog')"
                     >
                         <div class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -38,7 +38,7 @@
                         </div>
                         @if (filterPopupVisible) {
                             <div class="popup-container filters" (click)="$event.stopPropagation()">
-                                <app-filter-dialog />
+                                <app-filter-dialog (close)="closePopup('filter-dialog')" />
                             </div>
                         }
                     </div>

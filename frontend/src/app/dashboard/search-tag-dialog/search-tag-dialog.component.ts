@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class SearchTagDialogComponent {
   searchTerm: string = '';
+  close = output<void>();
 
   arr = [1,2,3,4,5,6,7,8]
 
@@ -21,6 +22,6 @@ export class SearchTagDialogComponent {
   }
 
   closePopup() {
-    console.log("CLOSE");
+    this.close.emit();
   }
 }

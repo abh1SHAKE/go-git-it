@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 export class FilterDialogComponent {
   searchTerm: string = '';
   selectedOption: string = '';
+
+  close = output<void>();
 
   filterOptions = [
   { label: "Show only public snippets", selected: false },
@@ -27,6 +29,6 @@ export class FilterDialogComponent {
   }
 
   closePopup() {
-    console.log("CLOSE");
+    this.close.emit();
   }
 }
