@@ -1,0 +1,28 @@
+<div class="wrapper">
+    <div class="header-section">
+        <div class="heading font-calsans">FILTER OPTIONS</div>
+        <div class="close-icon" (click)="closeDialog()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 1216 1312">
+                <path fill="currentColor"
+                    d="M1202 1066q0 40-28 68l-136 136q-28 28-68 28t-68-28L608 976l-294 294q-28 28-68 28t-68-28L42 1134q-28-28-28-68t28-68l294-294L42 410q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294l294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68L880 704l294 294q28 28 28 68" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="dialog-body">
+        <div class="scroll-container">
+            <div class="radio-options">
+                @for (option of filterOptions; track option) {
+                <label class="tile font-urbanist" [class.active]="selectedOption === option.label">
+                    <input type="radio" name="filterOption" [value]="option.label" [(ngModel)]="selectedOption" />
+                    {{ option.label }}
+                </label>
+                }
+            </div>
+        </div>
+
+        <div class="cta-container font-calsans">
+            APPLY
+        </div>
+    </div>
+</div>

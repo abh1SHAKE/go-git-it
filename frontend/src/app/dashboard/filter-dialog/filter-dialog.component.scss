@@ -1,0 +1,93 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 24px;
+    color: #ffffffbd;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .close-icon {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+    }
+
+    .dialog-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow: hidden;
+
+        margin-top: 20px;
+    }
+
+    .scroll-container {
+        flex-grow: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-right: 4px;
+        margin-bottom: 16px;
+
+        .radio-options {
+            display: flex;
+            flex-direction: column;
+
+            gap: 8px;
+            width: 100%;
+
+            .tile {
+                position: relative;
+                align-items: center;
+                justify-content: center;
+                padding: 12px 20px;
+                border-radius: 8px;
+                background-color: #1b1b1b;
+                color: #ffffffbd;
+                cursor: pointer;
+
+                input[type='radio'] {
+                    display: none;
+                }
+
+                &:hover {
+                    background-color: #222;
+                    border-color: #666;
+                }
+
+                &.active {
+                    background-color: #ffffffbd;
+                    color: #1b1b1b;
+                    font-weight: 600;
+                }
+            }
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .cta-container {
+        display: flex;
+        padding: 8px;
+        border-radius: 8px;
+        color: #ffffffbd;
+        border: 2px dashed #ffffffbd;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0.7;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

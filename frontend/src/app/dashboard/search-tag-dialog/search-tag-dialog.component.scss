@@ -1,0 +1,115 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 24px;
+    color: #ffffffbd;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .close-icon {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+    }
+
+    .search-container {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        padding: 20px 0;
+
+        .search-bar {
+            display: flex;
+            flex: 1;
+            gap: 8px;
+            padding: 4px 12px;
+            border: 2px solid #ffffff7a;
+            border-radius: 16px;
+            align-items: center;
+
+            .icon {
+                display: flex;
+            }
+
+            .search-input {
+                width: 100%;
+                background: transparent;
+                border: none;
+                outline: none;
+                color: #ffffffbd;
+
+                &::placeholder {
+                    opacity: 0.7;
+                }
+            }
+        }
+
+        .clear {
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    .dialog-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .scroll-container {
+        flex-grow: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-right: 4px;
+        margin-bottom: 16px;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tag {
+            font-size: 14px;
+            padding: 4px 10px;
+            color: #ffffff9d;
+            border: 2px solid #ffffff9d;
+            border-radius: 50px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ffffff1a;
+            }
+        }
+    }
+
+    .cta-container {
+        display: flex;
+        padding: 8px;
+        border-radius: 8px;
+        color: #ffffffbd;
+        border: 2px dashed #ffffffbd;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0.7;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
