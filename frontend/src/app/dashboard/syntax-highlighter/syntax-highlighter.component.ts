@@ -1,16 +1,9 @@
 import { Component, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import Prism from 'prismjs';
 
-// Import base language
 import 'prismjs/components/prism-markup';
-
-// ✅ Add this line to fix the PHP tokenizer error
 import 'prismjs/components/prism-markup-templating';
-
-// Now safely import PHP (depends on markup-templating)
 import 'prismjs/components/prism-php';
-
-// Other languages
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-java';
