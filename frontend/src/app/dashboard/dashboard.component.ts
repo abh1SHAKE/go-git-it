@@ -43,7 +43,7 @@ export class DashboardComponent {
     },
   ];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {}
 
   onSearch(term: string) {
     const lowerTerm = term.toLowerCase();
@@ -78,6 +78,17 @@ export class DashboardComponent {
         ...config,
       });
     }
+  }
+
+  copyCode() {
+    navigator.clipboard
+      .writeText(this.selectedSnippet.code)
+      .then(() => {
+        console.log('Copied');
+      })
+      .catch((err) => {
+        console.error('Failed to copy: ', err);
+      });
   }
 
   selectedSnippet = {

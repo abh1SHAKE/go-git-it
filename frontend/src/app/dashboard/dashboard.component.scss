@@ -76,7 +76,7 @@
                 scroll-behavior: smooth;
 
                 position: relative;
-                
+
                 &::-webkit-scrollbar {
                     display: none;
                 }
@@ -146,6 +146,34 @@
                 &::-webkit-scrollbar {
                     display: none;
                 }
+
+                .snippet-topbar {
+                    position: sticky;
+                    top: 0;
+                    display: flex;
+                    padding: 20px 20px 0 20px;
+                    align-items: center;
+                    justify-content: space-between;
+                    z-index: 10;
+
+                    .language {
+                        padding: 8px 12px;
+                        border-radius: 8px;
+                        background: #161616;
+                    }
+
+                    .snippet-actions {
+                        display: flex;
+                        gap: 32px;
+                        padding: 8px 12px;
+                        border-radius: 8px;
+                        background: #161616;
+
+                        .action {
+                            cursor: pointer;
+                        }
+                    }
+                }
             }
         }
     }
@@ -154,4 +182,3 @@
 .icon {
     display: flex;
 }
-
