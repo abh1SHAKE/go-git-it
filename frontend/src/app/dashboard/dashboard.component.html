@@ -68,6 +68,10 @@
                 </div>
             </div>
             <div class="code-container" #codeContainer>
+                <app-syntax-highlighter
+                    [code]="selectedSnippet.code" 
+                    [language]="selectedSnippet.language"
+                />
             </div>
         </div>
     </div>

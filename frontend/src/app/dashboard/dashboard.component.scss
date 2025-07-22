@@ -141,6 +141,11 @@
                 background: #1b1b1b;
                 height: 100%;
                 border-radius: 8px;
+                overflow: scroll;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
             }
         }
     }
