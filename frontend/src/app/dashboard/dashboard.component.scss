@@ -31,15 +31,26 @@
                         display: flex;
                         gap: 8px;
                         align-items: center;
-                        opacity: 0.7;
                         cursor: pointer;
+                        position: relative;
+
+                        .popup-container {
+                            position: absolute;
+                            top: 40px;
+                            left: 0px;
+                            z-index: 1000;
+                            background: #1b1b1b;
+                            width: 400px;
+                            height: 350px;
+                            border-radius: 8px;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+                        }
 
                         .text {
                             user-select: none;
                         }
 
                         &:hover {
-                            opacity: 1;
                             text-decoration: underline;
                         }
                     }

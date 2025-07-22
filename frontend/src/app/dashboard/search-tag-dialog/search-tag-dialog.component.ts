@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-search-tag-dialog',
@@ -14,7 +13,6 @@ export class SearchTagDialogComponent {
   arr = [1,2,3,4,5,6,7,8]
 
   constructor(
-    private dialogRef: MatDialogRef<SearchTagDialogComponent>
   ) {}
 
   onSearch(term: string) {
@@ -22,7 +20,7 @@ export class SearchTagDialogComponent {
     console.log(lowerTerm);
   }
 
-  closeDialog() {
-    this.dialogRef.close();
+  closePopup() {
+    console.log("CLOSE");
   }
 }

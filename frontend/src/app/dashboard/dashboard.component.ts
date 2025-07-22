@@ -8,7 +8,13 @@ import { SyntaxHighlighterComponent } from './syntax-highlighter/syntax-highligh
 
 @Component({
   selector: 'app-dashboard',
-  imports: [FormsModule, SnippetCardComponent, SyntaxHighlighterComponent],
+  imports: [
+    FormsModule, 
+    SnippetCardComponent, 
+    SyntaxHighlighterComponent,
+    FilterDialogComponent,
+    SearchTagDialogComponent
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -50,35 +56,20 @@ export class DashboardComponent {
     console.log(lowerTerm);
   }
 
-  openDialog(type: string) {
-    const rect = this.codeContainer.nativeElement.getBoundingClientRect();
 
-    const dialogWidth = 450;
-    const dialogHeight = 350;
+  searchPopupVisible = false;
+  filterPopupVisible = false;
 
-    const top = rect.top + (rect.height - dialogHeight) / 2;
-    const left = rect.left + (rect.width - dialogWidth) / 2;
-
-    const config = {
-      width: `${dialogWidth}px`,
-      height: `${dialogHeight}px`,
-      hasBackdrop: true,
-      backdropClass: 'transparent-backdrop',
-      panelClass: 'custom-mat-dialog',
-      position: { top: `${top}px`, left: `${left}px` },
-      disableClose: true,
-    };
-
-    if (type === 'search-tag') {
-      this.dialog.open(SearchTagDialogComponent, {
-        ...config,
-      });
-    } else {
-      this.dialog.open(FilterDialogComponent, {
-        ...config,
-      });
-    }
+togglePopup(type: string) {
+  if (type === 'search-tag') {
+    this.searchPopupVisible = true;
+    this.filterPopupVisible = false;
+  } else if (type === 'filter-dialog') {
+    this.filterPopupVisible = true;
+    this.searchPopupVisible = false;
   }
+}
+
 
   copyCode() {
     navigator.clipboard

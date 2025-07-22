@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-filter-dialog',
@@ -20,7 +19,6 @@ export class FilterDialogComponent {
 ];
 
   constructor(
-    private dialogRef: MatDialogRef<FilterDialogComponent>
   ) {}
 
   onSearch(term: string) {
@@ -28,7 +26,7 @@ export class FilterDialogComponent {
     console.log(lowerTerm);
   }
 
-  closeDialog() {
-    this.dialogRef.close();
+  closePopup() {
+    console.log("CLOSE");
   }
 }
