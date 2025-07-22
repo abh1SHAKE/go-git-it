@@ -45,6 +45,7 @@
             width: 100%;
 
             .tile {
+                font-size: 14px;
                 position: relative;
                 align-items: center;
                 justify-content: center;
@@ -53,20 +54,21 @@
                 background-color: #141414;
                 color: #ffffffbd;
                 cursor: pointer;
+                border: 2px solid #ffffff9d;
 
                 input[type='radio'] {
                     display: none;
                 }
 
                 &:hover {
-                    background-color: #222;
-                    border-color: #666;
+                    background-color: #1e1e1e;
+                    // border-color: #666;
                 }
 
                 &.active {
                     background-color: #ffffffbd;
                     color: #1b1b1b;
-                    font-weight: 600;
+                    font-weight: 700;
                 }
             }
         }
