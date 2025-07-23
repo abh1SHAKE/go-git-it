@@ -5,16 +5,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { SearchTagDialogComponent } from './search-tag-dialog/search-tag-dialog.component';
 import { SyntaxHighlighterComponent } from './syntax-highlighter/syntax-highlighter.component';
+import { MonacoEditorComponent } from "./monaco-editor/monaco-editor.component";
 
 @Component({
   selector: 'app-dashboard',
   imports: [
-    FormsModule, 
-    SnippetCardComponent, 
-    SyntaxHighlighterComponent,
+    FormsModule,
+    SnippetCardComponent,
     FilterDialogComponent,
-    SearchTagDialogComponent
-  ],
+    SearchTagDialogComponent,
+    MonacoEditorComponent
+],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^20.1.2",
     "@angular/platform-browser-dynamic": "^20.1.2",
     "@angular/router": "^20.1.2",
+    "monaco-editor": "^0.52.2",
+    "ngx-monaco-editor-v2": "^20.0.0",
     "prismjs": "^1.30.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

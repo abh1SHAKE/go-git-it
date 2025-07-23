@@ -105,9 +105,10 @@
                         </div>
                     </div>
                 </div>
-                <app-syntax-highlighter
-                    [code]="selectedSnippet.code" 
+                <app-monaco-editor
+                    [code]="selectedSnippet.code"
                     [language]="selectedSnippet.language"
+                    [readonly]="true"
                 />
             </div>
         </div>
