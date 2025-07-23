@@ -66,7 +66,11 @@
             <div class="scroll-wrapper">
                 <div class="card-scroll-section">
                     @for (snippet of snippets; track snippet) {
-                        <app-snippet-card/>
+                        <app-snippet-card
+                            [title]="snippet.title"
+                            [tags]="snippet.tags ?? []"
+                            (click)="setSelectedSnippet(snippet)"
+                        />
                     } 
                 </div>
             </div>
@@ -110,6 +114,7 @@
                     [language]="selectedSnippet.language"
                     [readonly]="true"
                 />
+                <!-- <app-snippet-form/> -->
             </div>
         </div>
     </div>
