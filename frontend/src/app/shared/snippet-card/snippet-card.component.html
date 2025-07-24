@@ -3,10 +3,16 @@
         <div class="title font-calsans">
             {{ title() }}
         </div>
-        <div class="tags-container font-urbanist">
-            @for (tag of tags(); track tag) {
-                <div class="tag">{{ tag.name }}</div>
-            }
-        </div>
+        @if (tags()?.length !== 0) {
+            <div class="tags-container font-urbanist">
+                @for (tag of tags(); track tag) {
+                    <div class="tag">{{ tag.name }}</div>
+                }
+            </div>
+        } @else {
+            <div class="tags-container font-urbanist">
+                <div class="tag empty">no tags?</div>
+            </div>
+        }
     </div>
 </div>

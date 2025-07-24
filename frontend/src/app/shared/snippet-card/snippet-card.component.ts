@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { Tag } from '../../models/snippet-card.model';
 
 @Component({
   selector: 'app-snippet-card',
@@ -8,5 +9,5 @@ import { Component, input } from '@angular/core';
 })
 export class SnippetCardComponent {
     title = input<string>();
-    tags = input<{ id: number; name: string }[]>();    
+    tags = input<Tag[]>();    
 }

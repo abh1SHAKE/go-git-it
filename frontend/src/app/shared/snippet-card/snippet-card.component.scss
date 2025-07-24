@@ -26,6 +26,10 @@
                 padding: 4px 10px;
                 border: 2px solid #8d0505;
                 border-radius: 50px;
+
+                &.empty {
+                    border-color: #4c4c4c;
+                }
             }
         }
     }

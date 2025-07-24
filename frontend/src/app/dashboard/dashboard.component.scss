@@ -117,14 +117,14 @@
                 padding: 12px;
                 margin-top: 12px;
                 border-radius: 8px;
-                color: #ffffffbd;
-                border: 2px dashed #ffffffbd;
+                color: #a0a0a0;
+                border: 2px solid #a0a0a0;
                 justify-content: center;
                 cursor: pointer;
-                opacity: 0.7;
 
                 &:hover {
-                    opacity: 1;
+                    color: #ffffffbd;
+                    border-color: #ffffffbd;
                 }
             }
         }
@@ -172,9 +172,10 @@
                     z-index: 10;
 
                     .language {
-                        padding: 8px 12px;
+                        padding: 6px 10px;
                         border-radius: 8px;
                         background: #161616;
+                        border: 2px solid #4c4c4c;
                     }
 
                     .snippet-actions {
@@ -182,7 +183,6 @@
                         gap: 32px;
                         padding: 8px 12px;
                         border-radius: 8px;
-                        background: #161616;
 
                         .action {
                             cursor: pointer;
@@ -196,4 +196,8 @@
 
 .icon {
     display: flex;
+}
+
+.selected {
+    border: 2px solid red;
 }
