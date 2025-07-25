@@ -1,14 +1,51 @@
+.header-section {
+    display: flex;
+    color: #ffffffbd;
+    margin-bottom: 28px;
+    justify-content: space-between;
+}
+
 .snippet-form {
     display: flex;
+    gap: 16px;
     flex-direction: column;
+    color: #ffffffbd;
 
     label {
         display: flex;
+        gap: 8px;
         flex-direction: column;
+        font-family: "Cal Sans", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+
+        input[type='text'] {
+            padding: 0 8px;
+            font-size: 14px;
+            height: 28px;
+            outline: none;
+            border: 2px solid #4c4c4c;
+            color: #ffffffbd;
+            background-color: transparent;
+            border-radius: 4px;
+        }
+
+        .editor {
+            height: 250px;
+        }
     }
+}
+
+.gap-16 {
+    gap: 16px;
 }
 
 .display-flex-row {
     display: flex;
     flex-direction: row !important;
+}
+
+.display-flexcolumn {
+    display: flex;
+    flex-direction: column !important;
 }

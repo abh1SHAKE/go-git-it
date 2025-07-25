@@ -2,7 +2,8 @@
   class="editor"
   [options]="editorOptions()"
   [model]="{
-    value: code(),
+    value: currentCode(),
     language: language()
   }"
+  (onInit)="onEditorInit($event)"
 ></ngx-monaco-editor>

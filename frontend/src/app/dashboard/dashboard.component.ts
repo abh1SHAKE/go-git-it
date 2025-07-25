@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SnippetCardComponent } from '../shared/snippet-card/snippet-card.component';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { SearchTagDialogComponent } from './search-tag-dialog/search-tag-dialog.component';
-import { SyntaxHighlighterComponent } from './syntax-highlighter/syntax-highlighter.component';
 import { MonacoEditorComponent } from './monaco-editor/monaco-editor.component';
 import { SnippetFormComponent } from './snippet-form/snippet-form.component';
 import { Snippet } from '../models/snippet-card.model';
@@ -16,7 +16,6 @@ import { Snippet } from '../models/snippet-card.model';
     FilterDialogComponent,
     SearchTagDialogComponent,
     MonacoEditorComponent,
-    SnippetFormComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -114,6 +113,8 @@ export class DashboardComponent {
     },
   ];
 
+  constructor(private dialog: MatDialog) {}
+
   onSearch(term: string) {
     const lowerTerm = term.toLowerCase();
     console.log(lowerTerm);
@@ -124,6 +125,22 @@ export class DashboardComponent {
 
   setSelectedSnippet(snippet: any) {
     this.selectedSnippet = snippet;
+  }
+
+  openCreatSnippetDialog() {
+    console.log('Open Create Snippet Dialog');
+
+    const dialogWidth = '60%';
+
+    const config = {
+      width: dialogWidth,
+      hasBackdrop: true,
+      backdropClass: 'custom-backdrop',
+      panelClass: 'custom-dialog-panel',
+      disableClose: true,
+    }
+
+    this.dialog.open(SnippetFormComponent, config);
   }
 
   openPopup(type: string) {

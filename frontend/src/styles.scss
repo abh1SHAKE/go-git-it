@@ -52,3 +52,9 @@ body {
   color: #161616;
   border-radius: 8px;
 }
+
+.custom-dialog-panel .mdc-dialog__surface {
+    background: #161616;
+    border-radius: 12px;
+    padding: 24px;
+}

@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, effect, input, output, signal, computed } from '@angular/core';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 
 @Component({
@@ -12,12 +12,36 @@ export class MonacoEditorComponent {
     language = input<string>('');
     readonly = input<boolean>(true);
 
-    editorOptions = signal({
-        theme: 'vs-dark',
-        automaticLayout: true,
-        minimap: {enabled: false},
-        fontSize: 14,
-        fontFamily: 'JetBrains Mono',
-        readOnly: this.readonly()
-    })
+    codeChange = output<string>();
+    currentCode = signal('');
+
+    private editor: any;
+
+    constructor() {
+      effect(() => {
+        this.currentCode.set(this.code());
+      });
+    }
+
+    onEditorInit(editor: any) {
+      this.editor = editor;
+      console.log('Monaco editor initialized');
+    }
+
+    onEditorChange(event: Event) {
+      if (this.editor) {
+        const newCode = this.editor.getValue();
+        this.currentCode.set(newCode);
+        this.codeChange.emit(newCode);
+      }
+    }
+
+    editorOptions = computed(() => ({
+    theme: 'vs-dark',
+    automaticLayout: true,
+    minimap: { enabled: false },
+    fontSize: 14,
+    fontFamily: 'JetBrains Mono',
+    readOnly: this.readonly(),
+  }));
 }
