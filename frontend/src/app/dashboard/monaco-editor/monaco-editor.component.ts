@@ -16,32 +16,47 @@ export class MonacoEditorComponent {
     currentCode = signal('');
 
     private editor: any;
+    private isUpdatingFromInput = false;
 
     constructor() {
       effect(() => {
-        this.currentCode.set(this.code());
+        const inputCode = this.code();
+        if (this.editor && !this.isUpdatingFromInput && this.currentCode() !== inputCode) {
+          this.currentCode.set(inputCode);
+          this.editor.setValue(inputCode);
+        } else if (!this.editor) {
+          this.currentCode.set(inputCode);
+        }
       });
     }
 
     onEditorInit(editor: any) {
       this.editor = editor;
       console.log('Monaco editor initialized');
+
+      this.editor.setValue(this.code());
+
+      this.editor.onDidChangeModelContent(() => {
+        this.onEditorChange();
+      });
     }
 
-    onEditorChange(event: Event) {
-      if (this.editor) {
+    onEditorChange() {
+      if (this.editor && !this.isUpdatingFromInput) {
+        this.isUpdatingFromInput = true;
         const newCode = this.editor.getValue();
         this.currentCode.set(newCode);
         this.codeChange.emit(newCode);
+        this.isUpdatingFromInput = false;
       }
     }
 
     editorOptions = computed(() => ({
-    theme: 'vs-dark',
-    automaticLayout: true,
-    minimap: { enabled: false },
-    fontSize: 14,
-    fontFamily: 'JetBrains Mono',
-    readOnly: this.readonly(),
-  }));
+      theme: 'vs-dark',
+      automaticLayout: true,
+      minimap: { enabled: false },
+      fontSize: 14,
+      fontFamily: 'JetBrains Mono',
+      readOnly: this.readonly(),
+    }));
 }
