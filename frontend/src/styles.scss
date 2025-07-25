@@ -54,7 +54,13 @@ body {
 }
 
 .custom-dialog-panel .mdc-dialog__surface {
-    background: #161616;
+    background: #1b1b1b;
     border-radius: 12px;
     padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
+
+.custom-backdrop {
+    background: #161616ba;
+}
+

@@ -64,6 +64,7 @@
                     <app-snippet-card 
                         [title]="snippet.title" 
                         [tags]="snippet.tags ?? []"
+                        [selected]="selectedSnippet?.id === snippet.id"
                         (click)="setSelectedSnippet(snippet)" 
                     />
                     }

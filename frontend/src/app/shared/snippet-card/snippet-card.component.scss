@@ -5,6 +5,11 @@
     border-radius: 8px;
     padding: 24px 16px;
     cursor: pointer;
+    border: 2px solid transparent;
+
+    &.selected {
+        border: 2px solid #4c4c4c;
+    }
 
     &:hover {
         background: #252525;

@@ -9,5 +9,7 @@ import { Tag } from '../../models/snippet-card.model';
 })
 export class SnippetCardComponent {
     title = input<string>();
-    tags = input<Tag[]>();    
+    tags = input<Tag[]>();
+
+    selected = input<boolean>(false);
 }
