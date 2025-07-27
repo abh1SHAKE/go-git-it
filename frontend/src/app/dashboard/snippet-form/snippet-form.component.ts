@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MonacoEditorComponent } from "../monaco-editor/monaco-editor.component";
 import { SnippetFormDialogData } from '../../models/snippet-form-dialog-data.model';
+import { SUPPORTED_LANGUAGES, LanguageOption } from '../../constants/supported-languages';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-snippet-form',
@@ -16,6 +19,8 @@ export class SnippetFormComponent {
     isPublic: boolean = false;
     tagsInput: string = '';
     language: string = '';
+
+    supportedLanguages: LanguageOption[] = SUPPORTED_LANGUAGES;
 
     mode: 'create' | 'edit' = 'create';
 
