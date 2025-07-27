@@ -4,12 +4,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MonacoEditorComponent } from "../monaco-editor/monaco-editor.component";
 import { SnippetFormDialogData } from '../../models/snippet-form-dialog-data.model';
 import { SUPPORTED_LANGUAGES, LanguageOption } from '../../constants/supported-languages';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatOptionModule } from '@angular/material/core';
+import { CustomDropdownComponent } from '../../shared/custom-dropdown/custom-dropdown.component';
 
 @Component({
   selector: 'app-snippet-form',
-  imports: [FormsModule, MonacoEditorComponent],
+  imports: [FormsModule, MonacoEditorComponent, CustomDropdownComponent],
   templateUrl: './snippet-form.component.html',
   styleUrl: './snippet-form.component.scss',
 })
@@ -23,6 +22,10 @@ export class SnippetFormComponent {
     supportedLanguages: LanguageOption[] = SUPPORTED_LANGUAGES;
 
     mode: 'create' | 'edit' = 'create';
+
+    onLanguageChange(selectedLanguage: string) {
+        this.language = selectedLanguage;
+    }
 
     constructor(
       private dialogRef: MatDialogRef<SnippetFormComponent>,
@@ -59,5 +62,6 @@ export class SnippetFormComponent {
         console.log("CODE: ", this.code);
         console.log("PUBLIC: ", this.isPublic);
         console.log("TAGS: ", this.tagsInput);
+        console.log("LANGUAGE: ", this.language);
     }
 }
