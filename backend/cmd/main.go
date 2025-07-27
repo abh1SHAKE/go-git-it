@@ -34,5 +34,5 @@ func main() {
 		port = "8000"
 	}
 	log.Println("Server running on port", port)
-	http.ListenAndServe(":"+port, r)
+	http.ListenAndServe(":"+port, middleware.EnableCORS(r))
 }

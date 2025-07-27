@@ -5,6 +5,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatError } from '@angular/material/form-field';
+import { AuthService } from '../../../services/auth.service';
+import { RegisterApiPayload } from '../../../models/register-api-payload.model';
+import { RegisterApiResponse } from '../../../models/register-api-response.model';
 
 @Component({
   selector: 'app-auth-register',
@@ -24,7 +27,10 @@ export class AuthRegisterComponent {
   registrationForm!: FormGroup;
   switchToLogin = output<void>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {
     this.registrationForm = this.fb.group({
       name: [
         '',
@@ -49,8 +55,18 @@ export class AuthRegisterComponent {
 
   onSubmit() {
     if (this.registrationForm.valid) {
-      const formData = this.registrationForm.value;
+      const formData: RegisterApiPayload = this.registrationForm.value;
       console.log('FORM DATA -> ', formData);
+
+      this.authService.register(formData).subscribe({
+        next: (res: RegisterApiResponse) => {
+          console.log('Registration successful:', res);
+          this.switchToLogin.emit();
+        },
+        error: (err) => {
+          console.error('Registration failed:', err);
+        }
+      });
     } else {
       this.registrationForm.markAllAsTouched();
     }
