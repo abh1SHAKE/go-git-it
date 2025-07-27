@@ -1,5 +1,11 @@
 <div class="header-section">
-    <div class="form-title font-calsans">CREATE NEW SNIPPET</div>
+    <div class="form-title font-calsans">
+        @if (mode === 'create') {
+            CREATE A SNIPPET
+        } @else {
+            EDIT SNIPPET
+        }
+    </div>
     <div 
         class="close-button"
         (click)="closeDialog()"
@@ -21,6 +27,7 @@
         <app-monaco-editor 
             class="editor" 
             [code]="code" 
+            [language]="language"
             [readonly]="false" 
             (codeChange)="onCodeChange($event)" 
 
@@ -37,5 +44,9 @@
         <input class="font-urbanist" type="text" [(ngModel)]="tagsInput" name="tags" />
     </label>
 
-    <button type="submit" class="font-calsans">CREATE</button>
+    @if (mode === 'create') {
+        <button type="submit" class="font-calsans">CREATE</button>
+    } @else {
+        <button type="submit" class="font-calsans">UPDATE</button>
+    }
 </form>

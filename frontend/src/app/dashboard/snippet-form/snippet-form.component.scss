@@ -24,6 +24,38 @@
         gap: 8px;
         flex-direction: column;
 
+        input[type='checkbox'] {
+            appearance: none;
+            cursor: pointer;
+            align-self: center;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #ffffffbd;
+            border-radius: 2px;
+            position: relative;
+
+            &:checked {
+                background-color: #ffffffbd;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: -1px;
+                left: 2.5px;
+                width: 4px;
+                height: 8px;
+                border: solid #000;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+                opacity: 0;
+            }
+
+            &:checked::after {
+                opacity: 1;
+            }
+        }
+
         input[type='text'] {
             padding: 0 8px;
             font-size: 14px;

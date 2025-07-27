@@ -7,6 +7,7 @@ import { SearchTagDialogComponent } from './search-tag-dialog/search-tag-dialog.
 import { MonacoEditorComponent } from './monaco-editor/monaco-editor.component';
 import { SnippetFormComponent } from './snippet-form/snippet-form.component';
 import { Snippet } from '../models/snippet-card.model';
+import { SnippetFormDialogData } from '../models/snippet-form-dialog-data.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -127,7 +128,7 @@ export class DashboardComponent {
     this.selectedSnippet = snippet;
   }
 
-  openCreatSnippetDialog() {
+  openSnippetDialog(mode: 'create' | 'edit' = 'create', snippet?: Snippet) {
     console.log('Open Create Snippet Dialog');
 
     const dialogWidth = '60%';
@@ -138,7 +139,11 @@ export class DashboardComponent {
       backdropClass: 'custom-backdrop',
       panelClass: 'custom-dialog-panel',
       disableClose: true,
-    }
+      data: {
+        mode,
+        snippet,
+      } satisfies SnippetFormDialogData,
+    };
 
     this.dialog.open(SnippetFormComponent, config);
   }
