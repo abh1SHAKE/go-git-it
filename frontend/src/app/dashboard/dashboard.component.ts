@@ -79,22 +79,42 @@ export class DashboardComponent implements OnInit {
 
     const dialogRef = this.dialog.open(SnippetFormComponent, config);
 
-
     // TESTING
     dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed with result:', result);
+
       if (result?.created && result.snippet) {
+        console.log('Creating new snippet:', result.snippet);
         this.snippets.unshift(result.snippet);
         this.snippetStateService.setMySnippets(this.snippets);
         this.selectedSnippet = { ...result.snippet };
+        console.log('Selected snippet after create:', this.selectedSnippet);
       } else if (result?.updated && result.snippet) {
+        console.log('Updating snippet:', result.snippet);
+        console.log(
+          'Current selectedSnippet before update:',
+          this.selectedSnippet
+        );
+
+        // Update the snippets array
         this.snippets = this.snippets.map((s) =>
           s.id === result.snippet.id ? { ...result.snippet } : s
         );
 
+        console.log('Updated snippets array:', this.snippets);
         this.snippetStateService.setMySnippets(this.snippets);
-        // this.selectedSnippet = { ...result.snippet };
-        const updated = this.snippets.find(s => s.id === result.snippet.id);
-        this.selectedSnippet = { ...updated! };
+
+        // Add a small delay to ensure the view updates properly
+        setTimeout(() => {
+          // Set selected snippet directly from the result
+          this.selectedSnippet = { ...result.snippet };
+          console.log('Selected snippet after update:', this.selectedSnippet);
+          console.log('Selected snippet code:', this.selectedSnippet?.code);
+          console.log(
+            'Selected snippet code type:',
+            typeof this.selectedSnippet?.code
+          );
+        }, 10);
       }
     });
   }
