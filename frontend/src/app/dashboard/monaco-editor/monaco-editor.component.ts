@@ -9,7 +9,7 @@ import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 })
 export class MonacoEditorComponent implements OnDestroy {
     code = input<string>('');
-    language = input<string>('');
+    language = input<string>('javascript');
     readonly = input<boolean>(true);
 
     codeChange = output<string>();

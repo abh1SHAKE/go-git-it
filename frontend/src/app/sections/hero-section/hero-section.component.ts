@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroSectionAnimationComponent } from './hero-section-animation/hero-section-animation.component';
 import { AuthPanelComponent } from '../../shared/auth-panel/auth-panel.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hero-section',
@@ -35,14 +36,26 @@ export class HeroSection implements OnInit {
 
   subheading!: { subheading1: string; subheading2: string };
 
+  constructor(
+    private router: Router,
+  ) {}
+
   ngOnInit(): void {
     this.subheading = this.getSubheading();
+    const loggedIn = document.cookie.includes('loggedIn=true');
+    this.isAuthenticated = loggedIn;
   }
 
   getSubheading(): { subheading1: string; subheading2: string } {
     const content = this.heroSectionContent;
     const randomIndex = Math.floor(Math.random() * content.length);
     return content[randomIndex];
+  }
+
+  goToDashboard() {
+    if (this.isAuthenticated) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   openAuth() {

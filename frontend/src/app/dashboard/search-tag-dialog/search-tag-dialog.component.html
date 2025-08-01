@@ -25,16 +25,8 @@
 
     <div class="dialog-body">
         <div class="scroll-container">
-            @for (a of arr; track a) {
-            <div class="tag font-urbanist">javascript</div>
-            <div class="tag font-urbanist">typescript</div>
-            <div class="tag font-urbanist">react</div>
-            <div class="tag font-urbanist">angular</div>
-            <div class="tag font-urbanist">nodejs</div>
-            <div class="tag font-urbanist">html</div>
-            <div class="tag font-urbanist">express</div>
-            <div class="tag font-urbanist">bootstrap</div>
-            <div class="tag font-urbanist">flask</div>
+            @for (tag of tags; track tag) {
+                <div class="tag font-urbanist">{{ tag.name }}</div>
             }
         </div>
 

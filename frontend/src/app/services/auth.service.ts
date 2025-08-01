@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 import { RegisterApiResponse } from "../models/register-api-response.model";
 import { environment } from "../../environments/environment";
 import { LoginApiPayload } from "../models/login-api-payload.model";
-import { LoginApiResponse } from "../models/logina-api-response.model";
+import { LoginApiResponse } from "../models/login-api-response.model";
 
 @Injectable({
     providedIn: 'root'
@@ -21,6 +21,6 @@ export class AuthService {
     }
 
     login(payload: LoginApiPayload): Observable<LoginApiResponse> {
-        return this.http.post<LoginApiResponse>(`${this.BASE_URL}/login`, payload);
+        return this.http.post<LoginApiResponse>(`${this.BASE_URL}/login`, payload, {withCredentials: true});
     }
 }

@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { LoginApiPayload } from '../../../models/login-api-payload.model';
-import { LoginApiResponse } from '../../../models/logina-api-response.model';
+import { LoginApiResponse } from '../../../models/login-api-response.model';
 
 @Component({
   selector: 'app-auth-login',
@@ -52,7 +52,8 @@ export class AuthLoginComponent {
 
       this.authService.login(formData).subscribe({
         next: (res: LoginApiResponse) => {
-          if ('token' in res) {
+          if ('user' in res) {
+            localStorage.setItem('userName', res.user.name);
             console.log("Login successful, token received:", res);
             this.router.navigate(['/dashboard']);
           } else {

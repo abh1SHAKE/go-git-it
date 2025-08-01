@@ -84,8 +84,27 @@ func (uc *UserController) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	http.SetCookie(w, &http.Cookie{
+		Name: "token",
+		Value: token,
+		Path: "/",
+		HttpOnly: true,
+		Secure: false, // Set to true in production
+		SameSite: http.SameSiteLaxMode,
+		MaxAge: 60 * 60 * 24 * 30,
+	})
+
+	http.SetCookie(w, &http.Cookie{
+		Name: "loggedIn",
+		Value: "true",
+		Path: "/",
+		HttpOnly: false,
+		Secure: false, // Set to true in production
+		SameSite: http.SameSiteLaxMode,
+		MaxAge: 60 * 60 * 24 * 30,
+	})
+
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"token": token,
 		"user": user,
 	})
 }

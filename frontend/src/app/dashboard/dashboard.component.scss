@@ -46,7 +46,7 @@
                             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 
                             &.filters {
-                                width: 350px;
+                                width: 300px;
                             }
                         }
 
@@ -96,6 +96,18 @@
                     display: none;
                 }
 
+                .empty-message {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    align-items: center;
+                    justify-content: center;
+
+                    .message {
+                        font-size: 14px
+                    }
+                }
+
                 .card-scroll-section {
                     gap: 20px;
                     display: flex;
@@ -141,14 +153,16 @@
                 justify-content: flex-end;
                 align-items: center;
                 background: #1b1b1b;
-                padding: 16px;
+                padding: 24px 16px;
                 border-radius: 8px;
 
-                .profile {
-                    border: 2px solid white;
-                    border-radius: 50%;
-                    width: 36px;
-                    height: 36px;
+                .text {
+                    font-size: 16px;
+
+                    span {
+                        font-size: 18px;
+                        font-weight: 600;
+                    }
                 }
             }
 
@@ -189,6 +203,31 @@
                         }
                     }
                 }
+
+                .message-container {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 12px;
+                    color: #ffffff8c;
+
+                    .message {
+                        font-size: 16px;
+                        transform: scale(1);
+                        transition: transform 0.2s ease-in-out;
+
+                        &:hover {
+                            color: #ffffffeb;
+                            transform: scale(1.05);
+                        }
+                    }
+
+                    .sub-message {
+                        font-size: 14px;
+                    }
+                }
             }
         }
     }
@@ -198,6 +237,10 @@
     display: flex;
 }
 
-.selected {
-    border: 2px solid red;
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-default {
+    cursor: default;
 }

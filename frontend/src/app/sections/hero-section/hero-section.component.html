@@ -1,7 +1,15 @@
 <div class="parent-container">
     <div class="font-funnel header-section">
         <div class="header-title">: go git it</div>
-        <div class="header-cta" (click)="openAuth()">SIGN IN</div>
+        @if (isAuthenticated) {
+            <div class="header-cta" (click)="goToDashboard()">
+                DASHBOARD
+            </div>
+        } @else {
+            <div class="header-cta" (click)="openAuth()">
+                SIGN UP
+            </div>
+        }
     </div>
 
     <div class="main-section">

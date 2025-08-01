@@ -18,7 +18,7 @@ export class ScrollRevealDirective implements AfterViewInit {
           this.renderer.removeClass(element, 'in-view');
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.4 }
     );
 
     observer.observe(element);

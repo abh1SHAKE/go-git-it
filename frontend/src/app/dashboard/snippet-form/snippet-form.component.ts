@@ -5,6 +5,8 @@ import { MonacoEditorComponent } from "../monaco-editor/monaco-editor.component"
 import { SnippetFormDialogData } from '../../models/snippet-form-dialog-data.model';
 import { SUPPORTED_LANGUAGES, LanguageOption } from '../../constants/supported-languages';
 import { CustomDropdownComponent } from '../../shared/custom-dropdown/custom-dropdown.component';
+import { SnippetService } from '../../services/snippet.service';
+import { SnippetPayload } from '../../models/snippet-payload.model';
 
 @Component({
   selector: 'app-snippet-form',
@@ -29,6 +31,7 @@ export class SnippetFormComponent {
 
     constructor(
       private dialogRef: MatDialogRef<SnippetFormComponent>,
+	  private snippetService: SnippetService,
       @Inject(MAT_DIALOG_DATA) public data: SnippetFormDialogData
     ) {
       console.log("SnippetFormComponent initialized with data:", data);
@@ -53,10 +56,21 @@ export class SnippetFormComponent {
     }
 
     onSubmit() {
+		const tags = this.tagsInput.split(',').map(tag => tag.trim()).filter(Boolean);
+		const payload: SnippetPayload = {
+			title: this.title,
+			code: this.code,
+			language: this.language,
+			public: this.isPublic,
+			tags: tags,
+		}
+
         if (this.mode === 'create') {
-            console.log("Creating new snippet...");
-        } else if (this.mode === 'edit') {
-            console.log("Editing existing snippet..."); 
+            console.log("Creating new snippet...", payload);
+			this.createSnippet(payload);
+        } else if (this.mode === 'edit' && this.data.snippet) {
+			this.updateSnippet(this.data.snippet.id, payload);
+            console.log("Editing existing snippet...", payload); 
         }
         console.log("TITLE: ", this.title);
         console.log("CODE: ", this.code);
@@ -64,4 +78,28 @@ export class SnippetFormComponent {
         console.log("TAGS: ", this.tagsInput);
         console.log("LANGUAGE: ", this.language);
     }
+
+	createSnippet(payload: SnippetPayload) {
+		this.snippetService.createSnippet(payload).subscribe({
+			next: (res) => {
+				console.log('Snippet created successfully:', res);
+				this.dialogRef.close({ created: true, snippet: res });
+			},
+			error: (err) => {
+				console.error('Error creating snippet:', err);
+			}
+		});
+	}
+
+	updateSnippet(id: number, payload: SnippetPayload) {
+		this.snippetService.updateSnippet(id, payload).subscribe({
+			next: (res) => {
+				console.log('Snippet updated successfully:', res);
+				this.dialogRef.close({ updated: true, snippet: res });
+			},
+			error: (err) => {
+				console.error('Error updating snippet:', err);
+			}
+		});
+	}
 }

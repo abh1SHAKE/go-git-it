@@ -24,7 +24,7 @@ func SnippetRoutes() http.Handler {
 		protected.Use(middleware.AuthMiddleware)
 
 		protected.Post("/", snippetController.CreateSnippet)
-		protected.Get("/me", snippetController.GetMySnippets)
+		protected.Get("/my-snippets", snippetController.GetMySnippets)
 		protected.Put("/{id}", snippetController.UpdateSnippet)
 		protected.Delete("/{id}", snippetController.DeleteSnippet)
 	})

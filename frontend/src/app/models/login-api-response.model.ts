@@ -1,5 +1,4 @@
 export interface LoginSuccessResponse {
-    token: string;
     user: {
         id: number;
         name: string;
