@@ -141,14 +141,19 @@ export class DashboardComponent implements OnInit {
     const cached = this.snippetStateService.getMySnippets();
 
     if (cached) {
-      this.snippets = cached;
+      this.snippets = [...cached].sort(
+        (a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
       console.log('Using cached my snippets:', cached);
     } else {
       this.snippetService.getMySnippets().subscribe({
         next: (snippets: Snippet[]) => {
           console.log('Fetched my snippets:', snippets);
-          this.snippets = snippets;
-          this.snippetStateService.setMySnippets(snippets);
+          const sorted = [...snippets].sort(
+            (a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+          this.snippets = sorted;
+          this.snippetStateService.setMySnippets(sorted);
         },
         error: (err) => {
           console.error('Error fetching my snippets:', err);
@@ -161,14 +166,19 @@ export class DashboardComponent implements OnInit {
     const cached = this.snippetStateService.getPublicSnippets();
 
     if (cached) {
-      this.publicSnippets = cached;
+      this.publicSnippets = [...cached].sort(
+        (a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
       console.log('Using cached public snippets:', cached);
     } else {
       this.snippetService.getPublicSnippets().subscribe({
         next: (snippets: Snippet[]) => {
-          this.publicSnippets = snippets;
+          const sorted = [...snippets].sort(
+            (a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+          this.publicSnippets = sorted;
           console.log('Fetched public snippets:', snippets);
-          this.snippetStateService.setPublicSnippets(snippets);
+          this.snippetStateService.setPublicSnippets(sorted);
         },
         error: (err) => {
           console.error('Error fetching public snippets:', err);

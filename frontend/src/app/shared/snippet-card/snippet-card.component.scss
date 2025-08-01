@@ -29,7 +29,8 @@
             .tag {
                 font-size: 14px;
                 padding: 4px 10px;
-                border: 2px solid #8d0505;
+                font-weight: 700;
+                border: 2px solid transparent;
                 border-radius: 50px;
 
                 &.empty {

@@ -10,6 +10,6 @@ export interface Snippet {
     code: string;
     language: string;
     public: boolean;
-    createdAt: string;
+    created_at: string;
     tags: Tag[];
 }

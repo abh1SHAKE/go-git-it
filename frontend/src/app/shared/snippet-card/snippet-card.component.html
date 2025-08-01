@@ -1,12 +1,12 @@
 <div class="card-container" [class.selected]="selected()">
     <div class="card">
         <div class="title font-calsans">
-            {{ title() }}
+            {{ title() }} {{ createdAt() | ordinalDate }}
         </div>
         @if (tags()?.length !== 0) {
             <div class="tags-container font-urbanist">
                 @for (tag of tags(); track tag) {
-                    <div class="tag">{{ tag.name }}</div>
+                    <div class="tag" [ngStyle]="getTagStyle(tag.name)">{{ tag.name }}</div>
                 }
             </div>
         } @else {

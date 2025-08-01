@@ -16,7 +16,6 @@ export class FilterDialogComponent {
   filterOptions = [
   { label: "Show only public snippets", selected: false },
   { label: "Show only private snippets", selected: false },
-  { label: "Show the most recent snippets", selected: false },
   { label: "I don't even know what this does", selected: false },
 ];
 

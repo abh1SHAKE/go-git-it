@@ -82,6 +82,7 @@
             <div class="card-scroll-section">
                 @for (snippet of viewingPublic ? publicSnippets : snippets; track snippet) {
                 <app-snippet-card [title]="snippet.title" [tags]="snippet.tags ?? []"
+                    [createdAt]="snippet.created_at"
                     [selected]="selectedSnippet?.id === snippet.id" (click)="setSelectedSnippet(snippet)" />
                 }
             </div>
