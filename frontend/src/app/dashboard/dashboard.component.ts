@@ -6,7 +6,7 @@ import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { SearchTagDialogComponent } from './search-tag-dialog/search-tag-dialog.component';
 import { MonacoEditorComponent } from './monaco-editor/monaco-editor.component';
 import { SnippetFormComponent } from './snippet-form/snippet-form.component';
-import { Snippet, Tag } from '../models/snippet-card.model';
+import { Snippet, Tag } from '../models/snippet.model';
 import { SnippetFormDialogData } from '../models/snippet-form-dialog-data.model';
 import { SnippetService } from '../services/snippet.service';
 import { SnippetStateService } from '../services/snippet-state.service';
@@ -280,6 +280,28 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteSnippet() {
-    console.log('DELETE SNIPPET');
+    if (!this.selectedSnippet || !this.selectedSnippet.id) {
+      return;
+    }
+
+    console.log("DELETING");
+
+    this.snippetService.deleteSnippet(this.selectedSnippet.id).subscribe({
+      next: () => {
+        this.snippets = this.snippets.filter(s => s.id !== this.selectedSnippet.id);
+        this.snippetStateService.setMySnippets(this.snippets);
+
+        if (this.snippets.length > 0) {
+          this.selectedSnippet = this.snippets[0];
+        } else {
+          this.selectedSnippet = undefined!;
+        }
+
+        console.log("Snippet deleted successfully");
+      },
+      error: (err) => {
+        console.error("Failed to delete the snippet: ", err);
+      }
+    });
   }
 }

@@ -13,3 +13,7 @@ export interface Snippet {
     created_at: string;
     tags: Tag[];
 }
+
+export interface DeleteSnippetResponse {
+    message: string;
+}

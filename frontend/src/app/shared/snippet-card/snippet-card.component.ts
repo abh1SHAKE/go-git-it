@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Tag } from '../../models/snippet-card.model';
+import { Tag } from '../../models/snippet.model';
 import { OrdinalDatePipe } from '../ordinal-date-pipe';
 import { NgStyle } from '@angular/common';
 

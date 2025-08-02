@@ -1,4 +1,4 @@
-import { Snippet } from "./snippet-card.model";
+import { Snippet } from "./snippet.model";
 
 export interface SnippetFormDialogData {
     mode: 'create' | 'edit';

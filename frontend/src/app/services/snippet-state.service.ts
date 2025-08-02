@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Snippet } from "../models/snippet-card.model";
+import { Snippet } from "../models/snippet.model";
 
 @Injectable({
     providedIn: 'root'

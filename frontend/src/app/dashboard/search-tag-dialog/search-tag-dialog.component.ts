@@ -1,7 +1,7 @@
 import { Component, output, OnInit, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TagsService } from '../../services/tags.service';
-import { Tag } from '../../models/snippet-card.model';
+import { Tag } from '../../models/snippet.model';
 import { TagsStateService } from '../../services/tags-state.service';
 
 @Component({

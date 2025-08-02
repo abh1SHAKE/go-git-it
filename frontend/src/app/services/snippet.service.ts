@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Snippet } from "../models/snippet-card.model";
+import { DeleteSnippetResponse, Snippet } from "../models/snippet.model";
 import { SnippetPayload } from "../models/snippet-payload.model";
 
 @Injectable({
@@ -28,5 +28,9 @@ export class SnippetService {
 
     updateSnippet(id: number, payload: Partial<SnippetPayload>): Observable<Snippet> {
         return this.http.put<Snippet>(`${this.BASE_URL}/${id}`, payload, { withCredentials: true });
+    }
+
+    deleteSnippet(id: number): Observable<DeleteSnippetResponse> {
+        return this.http.delete<DeleteSnippetResponse>(`${this.BASE_URL}/${id}`, { withCredentials: true });
     }
 }

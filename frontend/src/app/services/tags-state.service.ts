@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Tag } from "../models/snippet-card.model";
+import { Tag } from "../models/snippet.model";
 
 @Injectable({
     providedIn: 'root'
