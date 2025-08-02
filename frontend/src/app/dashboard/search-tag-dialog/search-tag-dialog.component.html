@@ -20,17 +20,21 @@
             <input type="text" class="search-input font-urbanist" placeholder="pretend this narrows things down"
                 [(ngModel)]="searchTerm" (input)="onSearch(searchTerm)" />
         </div>
-        <div class="clear font-urbanist">CLEAR ALL</div>
+        <div class="clear font-urbanist" (click)="onClearAll()">CLEAR ALL</div>
     </div>
 
     <div class="dialog-body">
         <div class="scroll-container">
-            @for (tag of tags; track tag) {
-                <div class="tag font-urbanist">{{ tag.name }}</div>
+            @for (tag of filteredTags; track tag) {
+                <div class="tag font-urbanist" 
+                     [class.selected]="isTagSelected(tag)"
+                     (click)="toggleTagSelection(tag)">
+                    {{ tag.name }}
+                </div>
             }
         </div>
 
-        <div class="cta-container font-calsans">
+        <div class="cta-container font-calsans" (click)="onApply()">
             APPLY
         </div>
     </div>

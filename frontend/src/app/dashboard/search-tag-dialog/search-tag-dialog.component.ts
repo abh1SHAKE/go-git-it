@@ -1,4 +1,4 @@
-import { Component, output, OnInit } from '@angular/core';
+import { Component, output, OnInit, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TagsService } from '../../services/tags.service';
 import { Tag } from '../../models/snippet-card.model';
@@ -13,8 +13,12 @@ import { TagsStateService } from '../../services/tags-state.service';
 export class SearchTagDialogComponent implements OnInit {
   searchTerm: string = '';
   close = output<void>();
+  apply = output<Tag[]>();
+
+  initialSelectedTags = input<Tag[]>([]);
 
   tags: Tag[] = [];
+  selectedTags: Tag[] = [];
 
   constructor(
     private tagsService: TagsService,
@@ -22,12 +26,28 @@ export class SearchTagDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-	this.getTags();
+    this.selectedTags = [...this.initialSelectedTags()];
+    this.getTags();
   }
 
   onSearch(term: string) {
     const lowerTerm = term.toLowerCase();
-    console.log(lowerTerm);
+  }
+
+  get filteredTags(): Tag[] {
+    // First get all tags or filtered tags if searching
+    const filtered = this.searchTerm.trim()
+      ? this.tags.filter((tag) =>
+          tag.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+        )
+      : [...this.tags];
+
+    // Split into selected and unselected
+    const selected = filtered.filter((tag) => this.isTagSelected(tag));
+    const unselected = filtered.filter((tag) => !this.isTagSelected(tag));
+
+    // Return selected first, then unselected
+    return [...selected, ...unselected];
   }
 
   getTags() {
@@ -35,19 +55,41 @@ export class SearchTagDialogComponent implements OnInit {
 
     if (cached) {
       this.tags = cached;
-      console.log('Using cached tags:', cached);
     } else {
       this.tagsService.getTags().subscribe({
         next: (tags: Tag[]) => {
           this.tags = tags;
-		  this.tagsStateService.setTags(tags);
-          console.log('Tags fetched successfully:', tags);
+          this.tagsStateService.setTags(tags);
         },
         error: (err) => {
           console.error('Error fetching tags:', err);
         },
       });
     }
+  }
+
+  toggleTagSelection(tag: Tag) {
+    const index = this.selectedTags.findIndex((t) => t.id === tag.id);
+    if (index === -1) {
+      this.selectedTags.push(tag);
+    } else {
+      this.selectedTags.splice(index, 1);
+    }
+  }
+
+  isTagSelected(tag: Tag): boolean {
+    return this.selectedTags.some((t) => t.id === tag.id);
+  }
+
+  onApply() {
+    this.apply.emit(this.selectedTags);
+    this.closePopup();
+  }
+
+  onClearAll() {
+    this.selectedTags = [];
+    this.apply.emit([]);
+    this.closePopup();
   }
 
   closePopup() {

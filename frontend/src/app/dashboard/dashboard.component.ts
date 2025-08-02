@@ -6,7 +6,7 @@ import { FilterDialogComponent } from './filter-dialog/filter-dialog.component';
 import { SearchTagDialogComponent } from './search-tag-dialog/search-tag-dialog.component';
 import { MonacoEditorComponent } from './monaco-editor/monaco-editor.component';
 import { SnippetFormComponent } from './snippet-form/snippet-form.component';
-import { Snippet } from '../models/snippet-card.model';
+import { Snippet, Tag } from '../models/snippet-card.model';
 import { SnippetFormDialogData } from '../models/snippet-form-dialog-data.model';
 import { SnippetService } from '../services/snippet.service';
 import { SnippetStateService } from '../services/snippet-state.service';
@@ -31,6 +31,8 @@ export class DashboardComponent implements OnInit {
   snippets: Snippet[] = [];
   publicSnippets: Snippet[] = [];
 
+  selectedTags: Tag[] = [];
+
   userName: string | null = null;
 
   viewMode: 'private' | 'public' = 'private';
@@ -45,7 +47,50 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.userName = localStorage.getItem('userName');
     this.getMySnippets();
-    this.getPublicSnippets();
+  }
+
+  get filteredSnippets(): Snippet[] {
+    let filtered = this.snippets;
+
+    if (this.searchTerm.trim()) {
+      filtered = filtered.filter(
+        (s) => s.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+
+    if (this.selectedTags.length > 0) {
+      filtered = filtered.filter(
+        snippet => this.selectedTags.some(
+          tag => snippet.tags?.some(snippetTag => snippetTag.id === tag.id)
+        )
+      );
+    }
+
+    return filtered;
+  }
+
+  get filteredPublicSnippets(): Snippet[] {
+    let filtered = this.publicSnippets;
+
+    if (this.searchTerm.trim()) {
+      filtered = filtered.filter(
+        (s) => s.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+
+    if (this.selectedTags.length > 0) {
+      filtered = filtered.filter(
+        snippet => this.selectedTags.some(
+          tag => snippet.tags?.some(snippetTag => snippetTag.id === tag.id)
+        )
+      );
+    }
+
+    return filtered;
+  }
+
+  onTagsApplied(selectedTags: Tag[]) {
+    this.selectedTags = selectedTags;
   }
 
   onSearch(term: string) {
@@ -142,18 +187,23 @@ export class DashboardComponent implements OnInit {
 
     if (cached) {
       this.snippets = [...cached].sort(
-        (a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        (a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
       console.log('Using cached my snippets:', cached);
+      this.getPublicSnippets();
     } else {
       this.snippetService.getMySnippets().subscribe({
         next: (snippets: Snippet[]) => {
           console.log('Fetched my snippets:', snippets);
           const sorted = [...snippets].sort(
-            (a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+            (a, b) =>
+              new Date(b.created_at).getTime() -
+              new Date(a.created_at).getTime()
           );
           this.snippets = sorted;
           this.snippetStateService.setMySnippets(sorted);
+          this.getPublicSnippets();
         },
         error: (err) => {
           console.error('Error fetching my snippets:', err);
@@ -165,19 +215,32 @@ export class DashboardComponent implements OnInit {
   getPublicSnippets() {
     const cached = this.snippetStateService.getPublicSnippets();
 
+    const userSnippetIds = new Set(this.snippets.map((s) => s.id));
+
     if (cached) {
-      this.publicSnippets = [...cached].sort(
-        (a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      const filtered = cached.filter((s) => !userSnippetIds.has(s.id));
+      this.publicSnippets = [...filtered].sort(
+        (a, b) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
-      console.log('Using cached public snippets:', cached);
+      console.log(
+        'Using cached public snippets (excluding user’s):',
+        this.publicSnippets
+      );
     } else {
       this.snippetService.getPublicSnippets().subscribe({
         next: (snippets: Snippet[]) => {
-          const sorted = [...snippets].sort(
-            (a,b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          const filtered = snippets.filter((s) => !userSnippetIds.has(s.id));
+          const sorted = [...filtered].sort(
+            (a, b) =>
+              new Date(b.created_at).getTime() -
+              new Date(a.created_at).getTime()
           );
           this.publicSnippets = sorted;
-          console.log('Fetched public snippets:', snippets);
+          console.log(
+            'Fetched public snippets (excluding user’s):',
+            this.publicSnippets
+          );
           this.snippetStateService.setPublicSnippets(sorted);
         },
         error: (err) => {
@@ -214,5 +277,9 @@ export class DashboardComponent implements OnInit {
       .catch((err) => {
         console.error('Failed to copy: ', err);
       });
+  }
+
+  deleteSnippet() {
+    console.log('DELETE SNIPPET');
   }
 }
