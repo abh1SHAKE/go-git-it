@@ -1,0 +1,32 @@
+.wrapper {
+    color: #ffffffbd;
+
+    .header-section {
+        display: flex;
+        margin-bottom: 28px;
+        justify-content: space-between;
+    }
+
+    .dialog-body {
+        .message {
+            margin-bottom: 16px;
+        }
+        .cta-container {
+            display: flex;
+            justify-content: space-between;
+
+            .button {
+                padding: 2px 4px;
+
+                &.delete {
+                    color: #161616;
+                    background-color: #ffffffbd;
+                }
+            }
+        }
+    }
+}
+
+.close-icon, .button {
+    cursor: pointer;
+}

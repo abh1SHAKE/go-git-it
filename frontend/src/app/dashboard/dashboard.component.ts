@@ -10,6 +10,7 @@ import { Snippet, Tag } from '../models/snippet.model';
 import { SnippetFormDialogData } from '../models/snippet-form-dialog-data.model';
 import { SnippetService } from '../services/snippet.service';
 import { SnippetStateService } from '../services/snippet-state.service';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -277,6 +278,26 @@ export class DashboardComponent implements OnInit {
       .catch((err) => {
         console.error('Failed to copy: ', err);
       });
+  }
+
+  deleteSnippetDialog() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      disableClose: true,
+      hasBackdrop: true,
+      backdropClass: 'custom-backdrop',
+      panelClass: 'custom-dialog-panel',
+      data: {
+        title: 'Delete Snippet',
+        message: `Are you sure you want to delete snippet: "${this.selectedSnippet.title}" ?`
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.deleteSnippet();
+      }
+    });
   }
 
   deleteSnippet() {
