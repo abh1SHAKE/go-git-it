@@ -39,6 +39,8 @@ export class DashboardComponent implements OnInit {
   viewMode: 'private' | 'public' = 'private';
   viewingPublic: boolean = false;
 
+  currentFilter: string = '';
+
   constructor(
     private dialog: MatDialog,
     private snippetService: SnippetService,
@@ -67,7 +69,26 @@ export class DashboardComponent implements OnInit {
       );
     }
 
+    if (this.currentFilter === "Show only public snippets") {
+      filtered = filtered.filter(snippet => snippet.public);
+    } else if (this.currentFilter === "Show only private snippets") {
+      filtered = filtered.filter(snippet => !snippet.public);
+    }
+
     return filtered;
+  }
+
+  onFilterApplied(filterOption: string) {
+    this.currentFilter = filterOption;
+
+    if (filterOption === "I don't even know what this does") {
+      window.open('https://youtu.be/rprf7LEraU4?si=olZ-trN2Yc52SmcN&t=159', '_blank');
+      this.currentFilter = '';
+      return;
+    } else if (filterOption === "Show all the snippets") {
+      this.currentFilter = '';
+      return;
+    }
   }
 
   get filteredPublicSnippets(): Snippet[] {
@@ -254,10 +275,39 @@ export class DashboardComponent implements OnInit {
   toggleSnippets() {
     this.viewingPublic = !this.viewingPublic;
 
-    if (this.viewingPublic && this.publicSnippets.length > 0) {
-      this.selectedSnippet = this.publicSnippets[0];
-    } else if (!this.viewingPublic && this.snippets.length > 0) {
-      this.selectedSnippet = this.snippets[0];
+    if (this.viewingPublic) {
+      if ((this.searchTerm.trim() ||
+        this.selectedTags.length > 0 
+      )) {
+        if (this.filteredPublicSnippets.length > 0) {
+          this.selectedSnippet = this.filteredPublicSnippets[0];
+        } else {
+          this.selectedSnippet = undefined!;
+        }
+      } else {
+        if (this.publicSnippets.length > 0) {
+          this.selectedSnippet = this.publicSnippets[0];
+        } else {
+          this.selectedSnippet = undefined!;
+        }
+      }
+    } else {
+      if ((this.searchTerm.trim() ||
+        this.selectedTags.length > 0 ||
+        this.currentFilter
+      )) {
+        if (this.filteredSnippets.length > 0) {
+          this.selectedSnippet = this.filteredSnippets[0];
+        } else {
+          this.selectedSnippet = undefined!;
+        }
+      } else {
+        if (this.snippets.length > 0) {
+          this.selectedSnippet = this.snippets[0];
+        } else {
+          this.selectedSnippet = undefined!;
+        }
+      }
     }
   }
 

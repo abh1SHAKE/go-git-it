@@ -16,14 +16,12 @@
                         <span class="tag-count font-urbanist">{{ selectedTags.length }}</span>
                         @if (searchPopupVisible) {
                         <div class="popup-container search-tag" (click)="$event.stopPropagation()">
-                            <app-search-tag-dialog
-                                [initialSelectedTags]="selectedTags"
-                                (close)="closePopup('search-tag')" 
-                                (apply)="onTagsApplied($event)"
-                            />
+                            <app-search-tag-dialog [initialSelectedTags]="selectedTags"
+                                (close)="closePopup('search-tag')" (apply)="onTagsApplied($event)" />
                         </div>
                         }
                     </div>
+                    @if (!viewingPublic) {
                     <div class="filter" (click)="openPopup('filter-dialog')">
                         <div class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -40,10 +38,15 @@
                         </div>
                         @if (filterPopupVisible) {
                         <div class="popup-container filters" (click)="$event.stopPropagation()">
-                            <app-filter-dialog (close)="closePopup('filter-dialog')" />
+                            <app-filter-dialog 
+                                [currentFilter]="currentFilter"
+                                (close)="closePopup('filter-dialog')" 
+                                (apply)="onFilterApplied($event)"
+                            />
                         </div>
                         }
                     </div>
+                    }
                 </div>
                 <div class="search-container">
                     <div class="search-bar">
@@ -62,17 +65,20 @@
             <div class="results-text">
                 <span class="font-calsans cursor-pointer mr-8" (click)="toggleSnippets()">
                     @if (viewingPublic) {
-                        PUBLIC SNIPPETS
+                    PUBLIC SNIPPETS
                     } @else {
-                        YOUR SNIPPETS
+                    YOUR SNIPPETS
                     }
                 </span>
-                <span class="font-urbanist cursor-default message"> 
+                <span class="font-urbanist cursor-default message">
                     * click to toggle between your own and the public snippets. *
                 </span>
             </div>
             <div class="scroll-wrapper">
-                @if (snippets.length < 1) { <div class="empty-message font-urbanist">
+                @if (
+                    (!viewingPublic && snippets.length < 1) ||
+                    (viewingPublic && publicSnippets.length < 1)
+                ) { <div class="empty-message font-urbanist">
                     <svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 24 24">
                         <g fill="none" fill-rule="evenodd">
                             <path
@@ -86,14 +92,19 @@
             }
             <div class="card-scroll-section">
                 @for (
-                    snippet of viewingPublic 
-                    ? (searchTerm || selectedTags.length > 0 ? filteredPublicSnippets : publicSnippets)
-                    : (searchTerm || selectedTags.length > 0 ? filteredSnippets : snippets);
-                    track snippet
+                snippet of viewingPublic
+                ? (searchTerm || selectedTags.length > 0 ? filteredPublicSnippets : publicSnippets)
+                : (searchTerm || selectedTags.length > 0 || currentFilter ? filteredSnippets : snippets);
+                track snippet
                 ) {
-                <app-snippet-card [title]="snippet.title" [tags]="snippet.tags ?? []"
+                <app-snippet-card 
+                    [title]="snippet.title" 
+                    [tags]="snippet.tags ?? []" 
                     [createdAt]="snippet.created_at"
-                    [selected]="selectedSnippet?.id === snippet.id" (click)="setSelectedSnippet(snippet)" />
+                    [public]="snippet.public"
+                    [selected]="selectedSnippet?.id === snippet.id" 
+                    (click)="setSelectedSnippet(snippet)" 
+                />
                 }
             </div>
         </div>
@@ -120,26 +131,29 @@
                         <div class="action" (click)="copyCode()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
                                 <g fill="none" stroke="#ffffffbd" stroke-width="1.5">
-                                    <path d="M6 11c0-2.828 0-4.243.879-5.121C7.757 5 9.172 5 12 5h3c2.828 0 4.243 0 5.121.879C21 6.757 21 8.172 21 11v5c0 2.828 0 4.243-.879 5.121C19.243 22 17.828 22 15 22h-3c-2.828 0-4.243 0-5.121-.879C6 20.243 6 18.828 6 16z" />
-                                    <path d="M6 19a3 3 0 0 1-3-3v-6c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h4a3 3 0 0 1 3 3" />
+                                    <path
+                                        d="M6 11c0-2.828 0-4.243.879-5.121C7.757 5 9.172 5 12 5h3c2.828 0 4.243 0 5.121.879C21 6.757 21 8.172 21 11v5c0 2.828 0 4.243-.879 5.121C19.243 22 17.828 22 15 22h-3c-2.828 0-4.243 0-5.121-.879C6 20.243 6 18.828 6 16z" />
+                                    <path
+                                        d="M6 19a3 3 0 0 1-3-3v-6c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h4a3 3 0 0 1 3 3" />
                                 </g>
                             </svg>
                         </div>
                         @if (!viewingPublic) {
-                            <div class="action" (click)="openSnippetDialog('edit', selectedSnippet)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
-                                    <g fill="none" stroke="#ffffffbd" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2">
-                                        <path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" />
-                                        <path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" />
-                                    </g>
-                                </svg>
-                            </div>
-                            <div class="action" (click)="deleteSnippetDialog()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
-                                    <path fill="#ffffffbd" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
-                                </svg>
-                            </div>
+                        <div class="action" (click)="openSnippetDialog('edit', selectedSnippet)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
+                                <g fill="none" stroke="#ffffffbd" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2">
+                                    <path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" />
+                                    <path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="action" (click)="deleteSnippetDialog()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
+                                <path fill="#ffffffbd"
+                                    d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
+                            </svg>
+                        </div>
                         }
                     </div>
                 </div>
@@ -151,17 +165,18 @@
                         CREATE YOUR OWN SNIPPET
                     </div>
                     <div class="sub-message cursor-default">OR</div>
-                    <div class="message cursor-pointer" (click)="toggleSnippets()">SEE WHAT OTHER PEOPLE HAVE CREATED</div>
+                    <div class="message cursor-pointer" (click)="toggleSnippets()">SEE WHAT OTHER PEOPLE HAVE CREATED
+                    </div>
             </div>
             } @else {
-                <div class="message-container font-calsans">
-                    <div class="message cursor-pointer" (click)="selectSnippet()">
-                        CLICK ON A SNIPPET TO VIEW IT
-                    </div>
-                    <div class="sub-message cursor-default">OR</div>
-                    <div class="message cursor-pointer" (click)="toggleSnippets()">SEE WHAT OTHER PEOPLE HAVE CREATED</div>
+            <div class="message-container font-calsans">
+                <div class="message cursor-pointer" (click)="selectSnippet()">
+                    CLICK ON A SNIPPET TO VIEW IT
                 </div>
-                }
+                <div class="sub-message cursor-default">OR</div>
+                <div class="message cursor-pointer" (click)="toggleSnippets()">SEE WHAT OTHER PEOPLE HAVE CREATED</div>
+            </div>
+            }
             }
         </div>
     </div>

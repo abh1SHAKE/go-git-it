@@ -20,6 +20,17 @@
         gap: 16px;
         flex-direction: column;
 
+        .title {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+
+            .visibility-icon {
+                display: flex;
+                align-items: center;
+            }
+        }
+
         .tags-container {
             display: flex;
             gap: 8px;

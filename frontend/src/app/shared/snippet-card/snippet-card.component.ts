@@ -5,7 +5,7 @@ import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-snippet-card',
-  imports: [NgStyle, OrdinalDatePipe],
+  imports: [NgStyle],
   templateUrl: './snippet-card.component.html',
   styleUrl: './snippet-card.component.scss',
 })
@@ -13,6 +13,7 @@ export class SnippetCardComponent {
   title = input<string>();
   tags = input<Tag[]>();
   createdAt = input<string>('');
+  public = input<boolean>(false);
 
   selected = input<boolean>(false);
 
