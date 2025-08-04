@@ -85,7 +85,7 @@ export class SnippetFormComponent {
         this.dialogRef.close({ created: true, snippet: res });
       },
       error: (err) => {
-        this.snackbar.error(`Error creating snippet: `, err);
+        this.snackbar.error(`Error creating snippet`);
       },
     });
   }
@@ -113,7 +113,7 @@ export class SnippetFormComponent {
         });
       },
       error: (err) => {
-        this.snackbar.error('Error updating snippet: ', err);
+        this.snackbar.error('Error updating snippet');
       },
     });
   }

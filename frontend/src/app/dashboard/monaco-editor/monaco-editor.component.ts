@@ -63,7 +63,7 @@ export class MonacoEditorComponent implements OnDestroy {
       return '';
     }
     if (typeof value !== 'string') {
-      this.snackbar.warn(`Monaco edtiro received non-string code value: ${value}`);
+      this.snackbar.warn(`Monaco edtior received non-string code value`);
       return String(value);
     }
     return value;
@@ -77,7 +77,7 @@ export class MonacoEditorComponent implements OnDestroy {
       try {
         this.editor.setValue(initialCode);
       } catch (error) {
-        this.snackbar.error(`Error setting initial editor value: ${error}`);
+        this.snackbar.error(`Error setting initial editor value`);
         this.editor.setValue('');
       }
 
@@ -97,7 +97,7 @@ export class MonacoEditorComponent implements OnDestroy {
         this.currentCode.set(newCode);
         this.codeChange.emit(newCode);
       } catch (error) {
-        this.snackbar.error(`Error getting editor value: ${error}`);
+        this.snackbar.error(`Error getting editor value`);
       } finally {
         this.isUpdatingFromInput = false;
       }
@@ -119,7 +119,7 @@ export class MonacoEditorComponent implements OnDestroy {
       try {
         this.editor.dispose();
       } catch (error) {
-        this.snackbar.warn(`Monaco editor disposal warning: ${error}`);
+        this.snackbar.warn(`Monaco editor disposal warning`);
       }
       this.editor = null;
     }

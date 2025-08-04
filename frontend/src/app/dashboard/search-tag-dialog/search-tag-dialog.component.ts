@@ -57,7 +57,7 @@ export class SearchTagDialogComponent implements OnInit {
           this.tagsStateService.setTags(tags);
         },
         error: (err) => {
-          this.snackbar.error('Error fetching tags: ', err);
+          this.snackbar.error('Error fetching tags');
         },
       });
     }

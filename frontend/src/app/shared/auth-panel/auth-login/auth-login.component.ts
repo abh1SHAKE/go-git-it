@@ -57,11 +57,11 @@ export class AuthLoginComponent {
             localStorage.setItem('userName', res.user.name);
             this.router.navigate(['/dashboard']);
           } else {
-            this.snackbar.error('Login failed, error: ', res.error);
+            this.snackbar.error('Login failed');
           }
         },
         error: (err) => {
-          this.snackbar.error('Login failed, error: ', err);
+          this.snackbar.error('Error: Login failed');
         }
       })
     } else {

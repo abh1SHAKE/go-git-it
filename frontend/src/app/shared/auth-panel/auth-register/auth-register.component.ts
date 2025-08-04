@@ -64,7 +64,7 @@ export class AuthRegisterComponent {
           this.switchToLogin.emit();
         },
         error: (err) => {
-          this.snackbar.error(`Registration failed: `, err);
+          this.snackbar.error(`Registration failed`);
         }
       });
     } else {

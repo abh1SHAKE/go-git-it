@@ -204,7 +204,7 @@ export class DashboardComponent implements OnInit {
           this.getPublicSnippets();
         },
         error: (err) => {
-          this.snackbar.error('Error fetching snippets: ', err);
+          this.snackbar.error('Error fetching snippets');
         },
       });
     }
@@ -234,7 +234,7 @@ export class DashboardComponent implements OnInit {
           this.snippetStateService.setPublicSnippets(sorted);
         },
         error: (err) => {
-          this.snackbar.error('Error fetching snippets: ', err);
+          this.snackbar.error('Error fetching snippets');
         },
       });
     }
@@ -294,7 +294,7 @@ export class DashboardComponent implements OnInit {
         this.snackbar.success('Code succesfully copied');
       })
       .catch((err) => {
-        this.snackbar.error('Failed to copy: ', err);
+        this.snackbar.error('Failed to copy');
       });
   }
 
@@ -337,7 +337,7 @@ export class DashboardComponent implements OnInit {
         this.snackbar.success("Snippet deleted successfully");
       },
       error: (err) => {
-        this.snackbar.error('Failed to delete snippet', err);
+        this.snackbar.error('Failed to delete snippet');
       }
     });
   }
