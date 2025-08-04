@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    backendUrl: 'http://localhost:8000/api',
+    production: true,
+    backendUrl: 'https://go-git-it.onrender.com/api',
 }
