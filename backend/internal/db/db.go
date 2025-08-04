@@ -19,8 +19,11 @@ func Init() {
 	password := os.Getenv("DB_PASSWORD")
 	name := os.Getenv("DB_NAME")
 
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, password, name)
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s %s",
+		host, port, user, password, name,
+		os.Getenv("DB_SSLMODE"),
+		os.Getenv("DB_EXTRA_OPTS"),
+	)
 
 	db, err = sql.Open("postgres", dsn)
 	if err != nil {
