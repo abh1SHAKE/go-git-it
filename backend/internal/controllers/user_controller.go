@@ -89,7 +89,7 @@ func (uc *UserController) Login(w http.ResponseWriter, r *http.Request) {
 		Value: token,
 		Path: "/",
 		HttpOnly: true,
-		Secure: false, // Set to true in production
+		Secure: true,
 		SameSite: http.SameSiteLaxMode,
 		MaxAge: 60 * 60 * 24,
 	})
@@ -99,7 +99,7 @@ func (uc *UserController) Login(w http.ResponseWriter, r *http.Request) {
 		Value: "true",
 		Path: "/",
 		HttpOnly: false,
-		Secure: false, // Set to true in production
+		Secure: true,
 		SameSite: http.SameSiteLaxMode,
 		MaxAge: 60 * 60 * 24,
 	})
