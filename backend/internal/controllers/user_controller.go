@@ -91,7 +91,7 @@ func (uc *UserController) Login(w http.ResponseWriter, r *http.Request) {
 		HttpOnly: true,
 		Secure: false, // Set to true in production
 		SameSite: http.SameSiteLaxMode,
-		MaxAge: 60 * 60 * 24 * 30,
+		MaxAge: 60 * 60 * 24,
 	})
 
 	http.SetCookie(w, &http.Cookie{
@@ -101,7 +101,7 @@ func (uc *UserController) Login(w http.ResponseWriter, r *http.Request) {
 		HttpOnly: false,
 		Secure: false, // Set to true in production
 		SameSite: http.SameSiteLaxMode,
-		MaxAge: 60 * 60 * 24 * 30,
+		MaxAge: 60 * 60 * 24,
 	})
 
 	json.NewEncoder(w).Encode(map[string]interface{}{

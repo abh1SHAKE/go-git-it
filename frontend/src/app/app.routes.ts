@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LandingComponent } from './landing/landing.component';
+import { AuthGuard } from './core/auth.guard';
 
 export const routes: Routes = [
     {
@@ -9,10 +10,11 @@ export const routes: Routes = [
     },
     {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [AuthGuard]
     },
     {
-        path: '*',
+        path: '**',
         redirectTo: ''
     }
 ];
