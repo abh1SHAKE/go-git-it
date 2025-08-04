@@ -211,34 +211,31 @@ export class DashboardComponent implements OnInit {
   }
 
   getPublicSnippets() {
-    const cached = this.snippetStateService.getPublicSnippets();
+  const cached = this.snippetStateService.getPublicSnippets() || [];
 
-    const userSnippetIds = new Set(this.snippets.map((s) => s.id));
+  const userSnippetIds = new Set((this.snippets || []).map((s) => s.id));
+  const filtered = cached.filter((s) => s && !userSnippetIds.has(s.id));
 
-    if (cached) {
-      const filtered = cached.filter((s) => !userSnippetIds.has(s.id));
-      this.publicSnippets = [...filtered].sort(
-        (a, b) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-      );
-    } else {
-      this.snippetService.getPublicSnippets().subscribe({
-        next: (snippets: Snippet[]) => {
-          const filtered = snippets.filter((s) => !userSnippetIds.has(s.id));
-          const sorted = [...filtered].sort(
-            (a, b) =>
-              new Date(b.created_at).getTime() -
-              new Date(a.created_at).getTime()
-          );
-          this.publicSnippets = sorted;
-          this.snippetStateService.setPublicSnippets(sorted);
-        },
-        error: (err) => {
-          this.snackbar.error('Error fetching snippets');
-        },
-      });
-    }
+  this.publicSnippets = [...filtered].sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+
+  if (cached.length === 0) {
+    this.snippetService.getPublicSnippets().subscribe({
+      next: (snippets: Snippet[]) => {
+        const freshFiltered = (snippets || []).filter((s) => s && !userSnippetIds.has(s.id));
+        const sorted = [...freshFiltered].sort(
+          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+        this.publicSnippets = sorted;
+        this.snippetStateService.setPublicSnippets(sorted);
+      },
+      error: (err) => {
+        this.snackbar.error('Error fetching public snippets');
+      }
+    });
   }
+}
 
   toggleSnippets() {
     this.viewingPublic = !this.viewingPublic;

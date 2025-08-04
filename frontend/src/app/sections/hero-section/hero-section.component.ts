@@ -42,7 +42,7 @@ export class HeroSection implements OnInit {
 
   ngOnInit(): void {
     this.subheading = this.getSubheading();
-    const loggedIn = document.cookie.includes('loggedIn=true');
+    const loggedIn = localStorage.getItem('loggedIn') === 'true';
     this.isAuthenticated = loggedIn;
   }
 
