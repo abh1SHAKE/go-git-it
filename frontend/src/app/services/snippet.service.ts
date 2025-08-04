@@ -15,22 +15,22 @@ export class SnippetService {
     constructor(private http: HttpClient) {}
 
     getMySnippets(): Observable<Snippet[]> {
-        return this.http.get<Snippet[]>(`${this.BASE_URL}/my-snippets`, { withCredentials: true });
+        return this.http.get<Snippet[]>(`${this.BASE_URL}/my-snippets`);
     }
 
     getPublicSnippets(): Observable<Snippet[]> {
-        return this.http.get<Snippet[]>(`${this.BASE_URL}`, { withCredentials: true });
+        return this.http.get<Snippet[]>(`${this.BASE_URL}`);
     }
 
     createSnippet(payload: SnippetPayload): Observable<Snippet> {
-        return this.http.post<Snippet>(`${this.BASE_URL}`, payload, { withCredentials: true });
+        return this.http.post<Snippet>(`${this.BASE_URL}`, payload);
     }
 
     updateSnippet(id: number, payload: Partial<SnippetPayload>): Observable<Snippet> {
-        return this.http.put<Snippet>(`${this.BASE_URL}/${id}`, payload, { withCredentials: true });
+        return this.http.put<Snippet>(`${this.BASE_URL}/${id}`, payload);
     }
 
     deleteSnippet(id: number): Observable<DeleteSnippetResponse> {
-        return this.http.delete<DeleteSnippetResponse>(`${this.BASE_URL}/${id}`, { withCredentials: true });
+        return this.http.delete<DeleteSnippetResponse>(`${this.BASE_URL}/${id}`);
     }
 }

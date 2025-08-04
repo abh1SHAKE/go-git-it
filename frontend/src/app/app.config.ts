@@ -4,6 +4,8 @@ import { provideMonacoEditor } from 'ngx-monaco-editor-v2';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/auth.interceptor';
 
 import { routes } from './app.routes';
 
@@ -20,6 +22,11 @@ export const appConfig: ApplicationConfig = {
         horizontalPosition: 'center',
         verticalPosition: 'top'
       }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     }
   ]
 };

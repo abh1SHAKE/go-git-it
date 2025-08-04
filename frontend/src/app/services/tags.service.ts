@@ -14,6 +14,6 @@ export class TagsService {
     constructor(private http: HttpClient) {}
 
     getTags(): Observable<Tag[]> {
-        return this.http.get<Tag[]>(`${this.BASE_URL}`, { withCredentials: true });
+        return this.http.get<Tag[]>(`${this.BASE_URL}`);
     }
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -14,14 +15,22 @@ const userIDKey key = "userID"
 
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		cookie, err := r.Cookie("token")
-		
-		if err != nil {
-			http.Error(w, "Missing or invalid token cookie", http.StatusUnauthorized)
+		authHeader := r.Header.Get("Authorization")
+		if authHeader == "" {
+			http.Error(w, "Authorization header required", http.StatusUnauthorized)
 			return
 		}
 
-		tokenString := cookie.Value
+		if !strings.HasPrefix(authHeader, "Bearer ") {
+			http.Error(w, "Invalid authorization header format", http.StatusUnauthorized)
+			return
+		}
+
+		tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+		if tokenString == "" {
+			http.Error(w, "Token not provided", http.StatusUnauthorized)
+			return
+		}
 
 		claims := jwt.MapClaims{}
 		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
@@ -40,7 +49,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		}
 
 		ctx := context.WithValue(r.Context(), userIDKey, int(userIDFloat))
-		next.ServeHTTP(w, r.WithContext((ctx)))
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 

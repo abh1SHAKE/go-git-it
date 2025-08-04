@@ -4,7 +4,10 @@ export interface LoginSuccessResponse {
         name: string;
         email: string;
         created_at: string;
-    }
+    },
+    token: string;
+    message: string;
+
 }
 
 export interface LoginErrorResponse {

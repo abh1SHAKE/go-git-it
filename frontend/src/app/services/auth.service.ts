@@ -21,6 +21,12 @@ export class AuthService {
     }
 
     login(payload: LoginApiPayload): Observable<LoginApiResponse> {
-        return this.http.post<LoginApiResponse>(`${this.BASE_URL}/login`, payload, {withCredentials: true});
+        return this.http.post<LoginApiResponse>(`${this.BASE_URL}/login`, payload);
+    }
+
+    isAuthenticated(): boolean {
+        const token = localStorage.getItem('authToken');
+        const loggedIn = localStorage.getItem('loggedIn');
+        return !!(token && loggedIn === 'true');
     }
 }

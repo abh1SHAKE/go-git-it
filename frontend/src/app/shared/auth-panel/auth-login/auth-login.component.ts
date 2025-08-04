@@ -53,8 +53,11 @@ export class AuthLoginComponent {
 
       this.authService.login(formData).subscribe({
         next: (res: LoginApiResponse) => {
-          if ('user' in res) {
+          if ('user' in res && 'token' in res) {
             localStorage.setItem('userName', res.user.name);
+            localStorage.setItem('authToken', res.token);
+            localStorage.setItem('loggedIn', 'true');
+            localStorage.setItem('userId', res.user.id.toString());
             this.router.navigate(['/dashboard']);
           } else {
             this.snackbar.error('Login failed');
