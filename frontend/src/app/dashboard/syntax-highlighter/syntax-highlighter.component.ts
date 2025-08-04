@@ -28,7 +28,6 @@ export class SyntaxHighlighterComponent implements AfterViewInit {
   @ViewChild('codeElement') codeElement!: ElementRef<HTMLElement>;
 
   ngAfterViewInit(): void {
-    console.log('Markup?', Prism.languages['markup']);
     if (this.codeElement) {
       Prism.highlightElement(this.codeElement.nativeElement);
     }

@@ -11,6 +11,7 @@ import { SnippetFormDialogData } from '../models/snippet-form-dialog-data.model'
 import { SnippetService } from '../services/snippet.service';
 import { SnippetStateService } from '../services/snippet-state.service';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -44,6 +45,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private snippetService: SnippetService,
+    private snackbar: SnackbarService,
     private snippetStateService: SnippetStateService
   ) {}
 
@@ -117,7 +119,6 @@ export class DashboardComponent implements OnInit {
 
   onSearch(term: string) {
     const lowerTerm = term.toLowerCase();
-    console.log(lowerTerm);
   }
 
   searchPopupVisible = false;
@@ -128,8 +129,6 @@ export class DashboardComponent implements OnInit {
   }
 
   openSnippetDialog(mode: 'create' | 'edit' = 'create', snippet?: Snippet) {
-    console.log('Open Create Snippet Dialog');
-
     const dialogWidth = '60%';
 
     const config = {
@@ -146,41 +145,20 @@ export class DashboardComponent implements OnInit {
 
     const dialogRef = this.dialog.open(SnippetFormComponent, config);
 
-    // TESTING
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog closed with result:', result);
-
       if (result?.created && result.snippet) {
-        console.log('Creating new snippet:', result.snippet);
         this.snippets.unshift(result.snippet);
         this.snippetStateService.setMySnippets(this.snippets);
         this.selectedSnippet = { ...result.snippet };
-        console.log('Selected snippet after create:', this.selectedSnippet);
       } else if (result?.updated && result.snippet) {
-        console.log('Updating snippet:', result.snippet);
-        console.log(
-          'Current selectedSnippet before update:',
-          this.selectedSnippet
-        );
-
-        // Update the snippets array
         this.snippets = this.snippets.map((s) =>
           s.id === result.snippet.id ? { ...result.snippet } : s
         );
 
-        console.log('Updated snippets array:', this.snippets);
         this.snippetStateService.setMySnippets(this.snippets);
 
-        // Add a small delay to ensure the view updates properly
         setTimeout(() => {
-          // Set selected snippet directly from the result
           this.selectedSnippet = { ...result.snippet };
-          console.log('Selected snippet after update:', this.selectedSnippet);
-          console.log('Selected snippet code:', this.selectedSnippet?.code);
-          console.log(
-            'Selected snippet code type:',
-            typeof this.selectedSnippet?.code
-          );
         }, 10);
       }
     });
@@ -212,12 +190,10 @@ export class DashboardComponent implements OnInit {
         (a, b) =>
           new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
-      console.log('Using cached my snippets:', cached);
       this.getPublicSnippets();
     } else {
       this.snippetService.getMySnippets().subscribe({
         next: (snippets: Snippet[]) => {
-          console.log('Fetched my snippets:', snippets);
           const sorted = [...snippets].sort(
             (a, b) =>
               new Date(b.created_at).getTime() -
@@ -228,7 +204,7 @@ export class DashboardComponent implements OnInit {
           this.getPublicSnippets();
         },
         error: (err) => {
-          console.error('Error fetching my snippets:', err);
+          this.snackbar.error('Error fetching snippets: ', err);
         },
       });
     }
@@ -245,10 +221,6 @@ export class DashboardComponent implements OnInit {
         (a, b) =>
           new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
-      console.log(
-        'Using cached public snippets (excluding user’s):',
-        this.publicSnippets
-      );
     } else {
       this.snippetService.getPublicSnippets().subscribe({
         next: (snippets: Snippet[]) => {
@@ -259,14 +231,10 @@ export class DashboardComponent implements OnInit {
               new Date(a.created_at).getTime()
           );
           this.publicSnippets = sorted;
-          console.log(
-            'Fetched public snippets (excluding user’s):',
-            this.publicSnippets
-          );
           this.snippetStateService.setPublicSnippets(sorted);
         },
         error: (err) => {
-          console.error('Error fetching public snippets:', err);
+          this.snackbar.error('Error fetching snippets: ', err);
         },
       });
     }
@@ -323,10 +291,10 @@ export class DashboardComponent implements OnInit {
     navigator.clipboard
       .writeText(this.selectedSnippet.code)
       .then(() => {
-        console.log('Copied');
+        this.snackbar.success('Code succesfully copied');
       })
       .catch((err) => {
-        console.error('Failed to copy: ', err);
+        this.snackbar.error('Failed to copy: ', err);
       });
   }
 
@@ -355,8 +323,6 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-    console.log("DELETING");
-
     this.snippetService.deleteSnippet(this.selectedSnippet.id).subscribe({
       next: () => {
         this.snippets = this.snippets.filter(s => s.id !== this.selectedSnippet.id);
@@ -368,10 +334,10 @@ export class DashboardComponent implements OnInit {
           this.selectedSnippet = undefined!;
         }
 
-        console.log("Snippet deleted successfully");
+        this.snackbar.success("Snippet deleted successfully");
       },
       error: (err) => {
-        console.error("Failed to delete the snippet: ", err);
+        this.snackbar.error('Failed to delete snippet', err);
       }
     });
   }

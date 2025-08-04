@@ -10,6 +10,7 @@ import {
 import { CustomDropdownComponent } from '../../shared/custom-dropdown/custom-dropdown.component';
 import { SnippetService } from '../../services/snippet.service';
 import { SnippetPayload } from '../../models/snippet-payload.model';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-snippet-form',
@@ -35,10 +36,9 @@ export class SnippetFormComponent {
   constructor(
     private dialogRef: MatDialogRef<SnippetFormComponent>,
     private snippetService: SnippetService,
+    private snackbar: SnackbarService,
     @Inject(MAT_DIALOG_DATA) public data: SnippetFormDialogData
   ) {
-    console.log('SnippetFormComponent initialized with data:', data);
-
     this.mode = data.mode;
 
     if (data.mode === 'edit' && data.snippet) {
@@ -72,27 +72,20 @@ export class SnippetFormComponent {
     };
 
     if (this.mode === 'create') {
-      console.log('Creating new snippet...', payload);
       this.createSnippet(payload);
     } else if (this.mode === 'edit' && this.data.snippet) {
       this.updateSnippet(this.data.snippet.id, payload);
-      console.log('Editing existing snippet...', payload);
     }
-    console.log('TITLE: ', this.title);
-    console.log('CODE: ', this.code);
-    console.log('PUBLIC: ', this.isPublic);
-    console.log('TAGS: ', this.tagsInput);
-    console.log('LANGUAGE: ', this.language);
   }
 
   createSnippet(payload: SnippetPayload) {
     this.snippetService.createSnippet(payload).subscribe({
       next: (res) => {
-        console.log('Snippet created successfully:', res);
+        this.snackbar.success('Snippet created successfully');
         this.dialogRef.close({ created: true, snippet: res });
       },
       error: (err) => {
-        console.error('Error creating snippet:', err);
+        this.snackbar.error(`Error creating snippet: `, err);
       },
     });
   }
@@ -100,11 +93,8 @@ export class SnippetFormComponent {
   updateSnippet(id: number, payload: SnippetPayload) {
     this.snippetService.updateSnippet(id, payload).subscribe({
       next: (res) => {
-        console.log('Snippet updated successfully:', res);
-
-        // Construct the updated snippet object from the original snippet + new data
         const updatedSnippet = {
-          ...this.data.snippet!, // Keep original properties (id, user_id, created_at, etc.)
+          ...this.data.snippet!,
           title: this.title,
           code: this.code,
           language: this.language,
@@ -114,18 +104,16 @@ export class SnippetFormComponent {
             .map((tag) => ({
               name: tag.trim(),
             }))
-            .filter((tag) => tag.name), // Convert tags back to the expected format
+            .filter((tag) => tag.name),
         };
-
-        console.log('Constructed updated snippet:', updatedSnippet);
 
         this.dialogRef.close({
           updated: true,
-          snippet: updatedSnippet, // Pass the actual updated snippet object
+          snippet: updatedSnippet,
         });
       },
       error: (err) => {
-        console.error('Error updating snippet:', err);
+        this.snackbar.error('Error updating snippet: ', err);
       },
     });
   }

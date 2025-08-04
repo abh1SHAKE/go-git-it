@@ -42,15 +42,15 @@ body {
 }
 
 ::selection {
-  background: #c1c1c1;
-  color: #161616;
-  border-radius: 8px;
+    background: #c1c1c1;
+    color: #161616;
+    border-radius: 8px;
 }
 
 ::-moz-selection {
-  background: #c1c1c1;
-  color: #161616;
-  border-radius: 8px;
+    background: #c1c1c1;
+    color: #161616;
+    border-radius: 8px;
 }
 
 .custom-dialog-panel .mdc-dialog__surface {
@@ -64,3 +64,41 @@ body {
     background: #161616ba;
 }
 
+.snackbar {
+    width: fit-content !important;
+    border-radius: 4px;
+    background: #1b1b1b;
+    font-family: "Urbanist", sans-serif;
+}
+
+.snackbar-error {
+    color: #ff2d2d;
+}
+
+.snackbar-success {
+    color: #0dfd85;
+}
+
+.snackbar-warning {
+    color: #f9ff48;
+}
+
+.mat-mdc-snack-bar-action {
+    display: none !important;
+}
+
+.mdc-snackbar.mat-mdc-snack-bar-container {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+}
+
+.mdc-snackbar .mdc-snackbar__surface {
+    width: auto !important;
+    min-width: 0 !important;
+}
+
+.mdc-snackbar .mdc-snackbar__label {
+    padding: 16px 28px !important;
+    white-space: nowrap !important;
+}

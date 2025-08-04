@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { LoginApiPayload } from '../../../models/login-api-payload.model';
 import { LoginApiResponse } from '../../../models/login-api-response.model';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
   selector: 'app-auth-login',
@@ -29,6 +30,7 @@ export class AuthLoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private snackbar: SnackbarService,
     private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
@@ -48,20 +50,18 @@ export class AuthLoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const formData: LoginApiPayload = this.loginForm.value;
-      console.log("FORM DATA -> ", formData);
 
       this.authService.login(formData).subscribe({
         next: (res: LoginApiResponse) => {
           if ('user' in res) {
             localStorage.setItem('userName', res.user.name);
-            console.log("Login successful, token received:", res);
             this.router.navigate(['/dashboard']);
           } else {
-            console.error("Login failed, error:", res.error);
+            this.snackbar.error('Login failed, error: ', res.error);
           }
         },
         error: (err) => {
-          console.error("Login failed:", err);
+          this.snackbar.error('Login failed, error: ', err);
         }
       })
     } else {

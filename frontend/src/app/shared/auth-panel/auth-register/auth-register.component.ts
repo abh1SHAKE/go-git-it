@@ -8,6 +8,7 @@ import { MatError } from '@angular/material/form-field';
 import { AuthService } from '../../../services/auth.service';
 import { RegisterApiPayload } from '../../../models/register-api-payload.model';
 import { RegisterApiResponse } from '../../../models/register-api-response.model';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
   selector: 'app-auth-register',
@@ -29,6 +30,7 @@ export class AuthRegisterComponent {
 
   constructor(
     private fb: FormBuilder,
+    private snackbar: SnackbarService,
     private authService: AuthService
   ) {
     this.registrationForm = this.fb.group({
@@ -56,15 +58,13 @@ export class AuthRegisterComponent {
   onSubmit() {
     if (this.registrationForm.valid) {
       const formData: RegisterApiPayload = this.registrationForm.value;
-      console.log('FORM DATA -> ', formData);
 
       this.authService.register(formData).subscribe({
         next: (res: RegisterApiResponse) => {
-          console.log('Registration successful:', res);
           this.switchToLogin.emit();
         },
         error: (err) => {
-          console.error('Registration failed:', err);
+          this.snackbar.error(`Registration failed: `, err);
         }
       });
     } else {

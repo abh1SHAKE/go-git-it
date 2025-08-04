@@ -8,6 +8,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-monaco-editor',
@@ -27,17 +28,11 @@ export class MonacoEditorComponent implements OnDestroy {
   private isUpdatingFromInput = false;
   private isDisposed = false;
 
-  constructor() {
+  constructor(
+    private snackbar: SnackbarService,
+  ) {
     effect(() => {
       const inputCode = this.code();
-      console.log(
-        'Effect triggered with input code:',
-        inputCode,
-        'Type:',
-        typeof inputCode
-      );
-
-      // Ensure we have a valid string
       const safeInputCode = this.getSafeCodeValue(inputCode);
 
       if (
@@ -46,20 +41,13 @@ export class MonacoEditorComponent implements OnDestroy {
         !this.isDisposed &&
         this.currentCode() !== safeInputCode
       ) {
-        console.log('Updating editor with safe code:', safeInputCode);
         this.currentCode.set(safeInputCode);
-        // Use setTimeout to avoid potential race conditions
         setTimeout(() => {
           if (this.editor && !this.isDisposed) {
             try {
               this.editor.setValue(safeInputCode);
             } catch (error) {
-              console.error(
-                'Error setting editor value:',
-                error,
-                'Attempted value:',
-                safeInputCode
-              );
+              snackbar.error(`Error setting editor value: ${error}`);
             }
           }
         }, 0);
@@ -71,19 +59,11 @@ export class MonacoEditorComponent implements OnDestroy {
 
   private getSafeCodeValue(value: any): string {
     if (value === null || value === undefined) {
-      console.warn(
-        'Monaco editor received null/undefined code value, using empty string'
-      );
+      this.snackbar.warn(`Monaco editor received null/undefined code value`);
       return '';
     }
     if (typeof value !== 'string') {
-      console.warn(
-        'Monaco editor received non-string code value:',
-        value,
-        'Type:',
-        typeof value,
-        'Converting to string'
-      );
+      this.snackbar.warn(`Monaco edtiro received non-string code value: ${value}`);
       return String(value);
     }
     return value;
@@ -91,22 +71,13 @@ export class MonacoEditorComponent implements OnDestroy {
 
   onEditorInit(editor: any) {
     this.editor = editor;
-    console.log('Monaco editor initialized');
 
     if (!this.isDisposed) {
       const initialCode = this.getSafeCodeValue(this.code());
-      console.log('Setting initial code:', initialCode);
-
       try {
         this.editor.setValue(initialCode);
       } catch (error) {
-        console.error(
-          'Error setting initial editor value:',
-          error,
-          'Attempted value:',
-          initialCode
-        );
-        // Fallback to empty string
+        this.snackbar.error(`Error setting initial editor value: ${error}`);
         this.editor.setValue('');
       }
 
@@ -126,7 +97,7 @@ export class MonacoEditorComponent implements OnDestroy {
         this.currentCode.set(newCode);
         this.codeChange.emit(newCode);
       } catch (error) {
-        console.error('Error getting editor value:', error);
+        this.snackbar.error(`Error getting editor value: ${error}`);
       } finally {
         this.isUpdatingFromInput = false;
       }
@@ -148,7 +119,7 @@ export class MonacoEditorComponent implements OnDestroy {
       try {
         this.editor.dispose();
       } catch (error) {
-        console.warn('Monaco editor disposal warning:', error);
+        this.snackbar.warn(`Monaco editor disposal warning: ${error}`);
       }
       this.editor = null;
     }

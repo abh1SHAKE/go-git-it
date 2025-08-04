@@ -71,12 +71,10 @@ export class CustomCursorComponent implements AfterViewInit, OnDestroy {
 
     targets.forEach((element) => {
       element.addEventListener('mouseenter', () => {
-        console.log('Hovered on', element);
         cursor.classList.add('cursor-hover');
       });
 
       element.addEventListener('mouseleave', () => {
-        console.log('Unhovered on', element);
         cursor.classList.remove('cursor-hover');
       });
     });

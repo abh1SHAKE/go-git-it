@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { TagsService } from '../../services/tags.service';
 import { Tag } from '../../models/snippet.model';
 import { TagsStateService } from '../../services/tags-state.service';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-search-tag-dialog',
@@ -22,6 +23,7 @@ export class SearchTagDialogComponent implements OnInit {
 
   constructor(
     private tagsService: TagsService,
+    private snackbar: SnackbarService,
     private tagsStateService: TagsStateService
   ) {}
 
@@ -30,23 +32,16 @@ export class SearchTagDialogComponent implements OnInit {
     this.getTags();
   }
 
-  onSearch(term: string) {
-    const lowerTerm = term.toLowerCase();
-  }
-
   get filteredTags(): Tag[] {
-    // First get all tags or filtered tags if searching
     const filtered = this.searchTerm.trim()
       ? this.tags.filter((tag) =>
           tag.name.toLowerCase().includes(this.searchTerm.toLowerCase())
         )
       : [...this.tags];
 
-    // Split into selected and unselected
     const selected = filtered.filter((tag) => this.isTagSelected(tag));
     const unselected = filtered.filter((tag) => !this.isTagSelected(tag));
 
-    // Return selected first, then unselected
     return [...selected, ...unselected];
   }
 
@@ -62,7 +57,7 @@ export class SearchTagDialogComponent implements OnInit {
           this.tagsStateService.setTags(tags);
         },
         error: (err) => {
-          console.error('Error fetching tags:', err);
+          this.snackbar.error('Error fetching tags: ', err);
         },
       });
     }
