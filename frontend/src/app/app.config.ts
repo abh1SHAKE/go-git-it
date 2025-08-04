@@ -11,7 +11,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
-    provideMonacoEditor({ baseUrl: 'assets/monaco-editor/vs' }),
+    provideMonacoEditor({ baseUrl: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/min/vs' }),
     provideAnimations(),
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
