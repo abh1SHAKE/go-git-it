@@ -1,37 +1,37 @@
-<div class="parent-container">
-    <div class="font-funnel header-section">
-        <div class="header-title">: go git it</div>
+<div class="parent-container flex flex-col bg-[#161616] gap-12 md:gap-24 pt-4 md:pt-12 px-8 md:px-20 pb-8 md:pb-20">
+    <div class="font-funnel header-section flex flex-row justify-between">
+        <div class="header-title position-relative size-fit text-4xl md:text-5xl cursor-pointer">: go git it</div>
         @if (isAuthenticated) {
-            <div class="header-cta" (click)="goToDashboard()">
+            <div class="header-cta flex flex-row text-[#ffffffbd] text-sm md:text-base items-center cursor-pointer" (click)="goToDashboard()">
                 DASHBOARD
             </div>
         } @else {
-            <div class="header-cta" (click)="openAuth()">
+            <div class="header-cta flex flex-row text-[#ffffffbd] items-center cursor-pointer" (click)="openAuth()">
                 SIGN UP
             </div>
         }
     </div>
 
-    <div class="main-section">
-        <div class="left-section">
+    <div class="main-section flex flex-row items-center gap-32">
+        <div class="left-section flex flex-col w-100-p lg:w-2/3">
             <div class="reveal-wrapper">
-                <div class="split-line font-urbanist hover-target" style="animation-delay: 0.1s">
+                <div class="split-line text-xl md:text-3xl font-urbanist cursor-default hover-target leading-[32px] md:leading-[48px]" style="animation-delay: 0.1s">
                     You could email yourself that code block… 
                 </div>
             </div>
             <div class="reveal-wrapper">
-                <div class="split-line font-urbanist hover-target" style="animation-delay: 0.3s">
+                <div class="split-line text-xl md:text-3xl font-urbanist cursor-default hover-target leading-[32px] md:leading-[48px]" style="animation-delay: 0.3s">
                     ...or you could, <span class="font-funnel"> : go git it. </span>
                 </div>
             </div>
 
-            <div class="description font-urbanist">
+            <div class="description flex flex-col gap-2 cursor-default text-sm md:text-base text-[#ffffffbd] text-justify mt-4 md:mt-12 font-urbanist">
                 <p>{{ subheading.subheading1 }}</p>
                 <p>{{ subheading.subheading2 }} </p>
             </div>
         </div>
 
-        <div class="right-section">
+        <div class="right-section flex flex-row w-1/3 self-center justify-end lg:block hidden">
             <div class="animaton-container">
                 <app-hero-section-animation/>
             </div>

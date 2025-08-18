@@ -1,22 +1,10 @@
 .parent-container {
-    background: #161616;
-    display: flex;
-    gap: 120px;
-    flex-direction: column;
-    padding: 40px 80px 100px;
     box-sizing: border-box;
 
     .header-section {
-        display: flex;
-        justify-content: space-between;
-
         .header-title {
-            width: fit-content;
-            height: fit-content;
-            font-size: 48px;
+            line-height: 56px;
             font-weight: 700;
-            position: relative;
-            cursor: pointer;
 
             color: transparent;
             background: linear-gradient(to left,
@@ -34,11 +22,7 @@
         }
 
         .header-cta {
-            display: flex;
-            color: #ffffffbd;
-            align-items: center;
-            cursor: pointer;
-            font-size: 16px;
+            // font-size: 16px;
 
             &:hover {
                 text-decoration: underline;
@@ -47,31 +31,9 @@
     }
 
     .main-section {
-        display: flex;
-        gap: 120px;
-
-        align-items: center;
-
-        .right-section {
-            align-self: center;
-            width: 40%;
-            display: flex;
-            justify-content: end;
-        }
-
         .left-section {
-            display: flex;
-            flex-direction: column;
-            width: 60%;
-
             .description {
-                cursor: default;
-                color: #ffffffbd;
-                font-size: 16px;
                 font-weight: 500;
-                margin-top: 60px;
-
-                text-align: justify;
                 line-height: 24px;
             }
 
@@ -79,13 +41,10 @@
                 overflow: hidden;
 
                 .split-line {
-                    padding: 4px;
                     animation: reveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) both;
 
                     width: fit-content;
-                    font-size: 32px;
                     font-weight: 600;
-                    cursor: default;
 
                     color: transparent;
                     background: linear-gradient(to left,
