@@ -1,13 +1,13 @@
-<div class="parent-container">
-    <div class="container">
-        <div class="section-title font-urbanist">
+<div class="parent-container bg-[#161616] pt-4 md:pt-12 px-8 md:px-20 pb-8 md:pb-20">
+    <div class="container flex flex-col position-relative gap-8 md:gap-16">
+        <div class="section-title font-urbanist text-[#ffffffbd] self-end text-xs md:text-sm cursor-default">
             * ticker, because why not? (hover to pause) *
         </div>
-        <div class="ticker-wrapper">
+        <div class="ticker-wrapper position-relative">
             <div class="shade left"></div>
 
-            <div class="ticker-track">
-                <div class="ticker-inner">
+            <div class="ticker-track flex flex-row">
+                <div class="ticker-inner flex flex-row">
                     @for (card of tickerCards; track card) {
                         <app-ticker-card 
                             [cardTitle]="card.cardTitle"
