@@ -1,23 +1,23 @@
 <div class="parent-container bg-[#161616] pt-4 md:pt-12 px-8 md:px-20 pb-8 md:pb-20">
     <div appScrollReveal class="container-box flex flex-col gap-8 md:gap-16 fade-up">
         <div class="header-section font-urbanist text-sm md:text-base cursor-default">
-            why choose <span class="highlight font-funnel">: go git it</span> though?
+            why choose <span class="highlight bg-[#c1c1c1] font-funnel">: go git it</span> though?
         </div>
         <div class="main-container flex flex-col lg:flex-row gap-[36px] md:gap-[80px]">
-            <div class="left-section flex flex-row items-center w-full lg:w-2/5 lg:min-w-[420px]">
+            <div class="left-section flex flex-row items-center gap-[40px] w-full lg:w-2/5 lg:min-w-[420px]">
                 <div class="hover-message hidden md:block font-urbanist cursor-default text-sm">* hover over the card to pause and read *</div>
                 <div class="card-container w-full" (mouseenter)="pauseCardLoop()" (mouseleave)="resumeCardLoop()">
-                    <div class="card flex flex-col bg-[#1b1b1b] font-urbanist hover-target p-[20px] md:p-[40px] md:gap-[28px] gap-[16px]">
+                    <div class="card flex flex-col bg-[#1b1b1b] font-urbanist hover-target rounded-sm p-[20px] md:p-[40px] md:gap-[28px] gap-[16px]">
                         <div class="card-image">
-                            <div class="image min-h-[240px] md:min-h-[300px]" [ngStyle]="{ 'background-image': cards[currentCardIndex].cardGradient }">
-                                <div class="card-title font-funnel text-2xl md:text-3xl">
+                            <div class="image flex flex-row items-center justify-center min-h-[240px] md:min-h-[300px]" [ngStyle]="{ 'background-image': cards[currentCardIndex].cardGradient }">
+                                <div class="card-title cursor-default font-funnel text-2xl md:text-3xl">
                                     {{ cards[currentCardIndex].cardTitle }}
                                 </div>
                             </div>
                         </div>
-                        <div class="card-bottom">
+                        <div class="card-bottom flex flex-row gap-[40px]">
                             @for (card of cards; track card) {
-                            <div class="progress-bar">
+                            <div class="progress-bar flex flex-row items-center">
                                 <div class="progress-bar-front" 
                                     [ngStyle]="{
                                         width: getProgressWidth(cards.indexOf(card))
@@ -31,12 +31,12 @@
                     </div>
                 </div>
             </div>
-            <div class="right-section w-full lg:w-3/5">
-                <div class="card-description font-urbanist">
+            <div class="right-section flex flex-row w-full lg:w-3/5">
+                <div class="card-description flex flex-col cursor-default gap-[24px] font-urbanist">
                     <div class="description-title">
                         <div>{{ cards[currentCardIndex].cardTitle }}</div>
                     </div>
-                    <div class="description-content text-sm md:text-base gap-[12px] md:gap-[24px]">
+                    <div class="description-content flex flex-col text-justify text-sm md:text-base gap-[12px] md:gap-[24px] cursor-default">
                         <div class="reveal-wrapper">
                             <div class="split-line" style="animation-delay: 0.3s">
                                 {{ cards[currentCardIndex].cardDescription[0] }}
