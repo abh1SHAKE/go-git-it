@@ -1,18 +1,18 @@
-<div [ngClass]="{ 'auth-overlay': true, 'slide-out': isClosing }">
-   <div class="font-funnel header-section">
-        <div class="header-title">: go git it</div>
-        <div class="header-cta hover-target" (click)="onClose()">GO BACK</div>
+<div [ngClass]="{ 'auth-overlay bg-[#f0f0f0] pt-4 md:pt-12 px-8 md:px-20 pb-8 md:pb-20': true, 'slide-out': isClosing }">
+   <div class="font-funnel header-section flex flex-row justify-between">
+        <div class="header-title text-4xl md:text-5xl">: go git it</div>
+        <div class="header-cta flex flex-row items-center text-base cursor-pointer hover-target" (click)="onClose()">GO BACK</div>
     </div>
 
-    <div class="main-container">
-        <div class="form-heading">
+    <div class="main-container flex flex-col items-center justify-center gap-[40px]">
+        <div class="form-heading text-xl cursor-default">
             @if (isSignUpPage) {
                 <div class="font-funnel">
-                    REGISTER TO <span class="highlight">:go git it</span>
+                    REGISTER TO <span class="highlight bg-[#161616]">:go git it</span>
                 </div>
             } @else {
                 <div class="font-funnel">
-                    LOGIN TO <span class="highlight">:go git it</span>
+                    LOGIN TO <span class="highlight bg-[#161616]">:go git it</span>
                 </div>
             }
         </div>

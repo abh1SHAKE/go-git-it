@@ -4,28 +4,18 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #f0f0f0;
     z-index: 1000;
-    padding: 40px 80px 100px;
     box-sizing: border-box;
 
     animation: slideIn 0.7s cubic-bezier(0.85, 0, 0.15, 1) forwards;
 
     .main-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         height: 100%;
-        flex-direction: column;
-        gap: 40px;
 
         .form-heading {
-            font-size: 20px;
             font-weight: 700;
-            cursor: default;
 
             .highlight {
-                background: #161616;
                 padding: 4px 8px;
                 color: #f0f0f0;
             }
@@ -37,24 +27,16 @@
     }
 
     .header-section {
-        display: flex;
-        justify-content: space-between;
-
         .header-title {
             width: fit-content;
             height: fit-content;
-            font-size: 48px;
             font-weight: 700;
             position: relative;
             cursor: pointer;
         }
 
         .header-cta {
-            display: flex;
             color: #333;
-            align-items: center;
-            cursor: pointer;
-            font-size: 16px;
 
             &:hover {
                 text-decoration: underline;
