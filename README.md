@@ -1,8 +1,8 @@
-# 🚀 : go git it
+# : go git it
 Personal code snippet vault with tagging, multi-language syntax highlighting, and community sharing. Built with Angular + Go + PostgreSQL. Store, organize, and discover reusable code patterns with Monaco Editor integration.
 
 
-# ✨ Features
+# Features
 - **Smart Organization:** Tag and categorize your code snippets for instant retrieval
 - **Multi-Language Support:** Syntax highlighting for 12+ languages including JavaScript, TypeScript, Python, Go, Java, C++, Ruby, PHP, Swift, Kotlin, Rust, SQL, and HTML
 - **Privacy Controls:** Keep snippets private for personal use or make them public to share your genius
@@ -10,7 +10,7 @@ Personal code snippet vault with tagging, multi-language syntax highlighting, an
 - **Advanced Search:** Find exactly what you need with tag-based filtering and search
 
 
-# 🛠️ Tech Stack
+# Tech Stack
 **Frontend**
 - Angular
 - Monaco editor (syntax highlighting)
@@ -25,7 +25,7 @@ Personal code snippet vault with tagging, multi-language syntax highlighting, an
 - PostgreSQL
 
 
-# 🎯 Use Cases
+# Use Cases
 Perfect for storing and organizing
 - Utility functions (debounce, throttle, retry logic)
 - API wrappers and fetch helpers
